@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+{
+    Schema::create('posts', function (Blueprint $table) {
+        $table->uuid('id')->primary();
+        $table->foreignIdFor(\App\Models\Category::class)->nullable();
+        $table->string('title');
+        $table->string('slug')->unique();
+        $table->longText('content'); 
+        $table->text('excerpt')->nullable();
+        $table->timestamp('published_at')->nullable();
+        $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
+
+        // The "Expandable" Magic Column
+        $table->json('meta_data')->nullable();
+
+        $table->timestamps();
+    });
+}
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
