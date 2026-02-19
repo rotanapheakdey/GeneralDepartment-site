@@ -13,6 +13,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\DateTimePicker;
 
 class PostResource extends Resource
 {
@@ -25,10 +27,34 @@ class PostResource extends Resource
         return $form
             ->schema([
                 //
+
+
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->label('News Category'),
+
+                Select::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Published',
+                        'archived' => 'Archived',
+                    ])
+                    ->required()
+                    ->native(false)
+                    ->default('draft'),
+
+                DateTimePicker::make('published_at')
+                    ->label('Publication Date')
+                    ->default(now()),
+
                 SpatieMediaLibraryFileUpload::make('featured_image')
-                    ->collection('posts')
+                    ->collection('posts') // This labels the image group
                     ->image()
-                    ->imageEditor(),
+                    ->imageEditor() // Allows you to crop images directly in the browser
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -65,5 +91,15 @@ class PostResource extends Resource
             'create' => Pages\CreatePost::route('/create'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasAnyRole(['admin', 'editor']);
+    }
+    public static function canDeleteAny(): bool
+    {
+        // Maybe only the Admin can delete news to prevent accidents?
+        return auth()->user()->hasRole('admin');
     }
 }

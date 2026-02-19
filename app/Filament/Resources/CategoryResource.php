@@ -21,10 +21,13 @@ class CategoryResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+        Forms\Components\TextInput::make('name')
+            ->required()
+            ->live(onBlur: true)
+            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', \Illuminate\Support\Str::slug($state))),
+        Forms\Components\TextInput::make('slug')->required(),
+    ]);
     }
 
     public static function table(Table $table): Table

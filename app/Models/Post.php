@@ -3,25 +3,36 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model implements HasMedia
 {
-    use HasUuids, InteractsWithMedia;
+    use InteractsWithMedia;
 
     protected $fillable = [
-        'category_id', 'title', 'slug', 'content', 'excerpt', 'status', 'meta_data'
+        'title',
+        'slug',
+        'content',
+        'status',
+        'category_id',
+        'published_at',
     ];
 
-    protected $casts = [
-        'meta_data' => 'array',
-        'published_at' => 'datetime',
-    ];
-
-    public function category()
+    /**
+     * Relationship: A post belongs to a category.
+     */
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Helper to get a clean excerpt for the news cards.
+     */
+    public function getExcerptAttribute(): string
+    {
+        return str($this->content)->stripTags()->limit(150);
     }
 }
