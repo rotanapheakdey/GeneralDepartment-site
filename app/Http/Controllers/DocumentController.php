@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class DocumentController extends Controller
+{
+    //
+    public function index()
+    {
+        return inertia('Documents/Index', [
+            'documents' => \App\Models\Document::latest()->get()
+        ]);
+    }
+}

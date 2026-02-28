@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\DocumentController;
 
 
 
@@ -15,6 +16,7 @@ Route::get('/', function () {
 
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{post:slug}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
