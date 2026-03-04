@@ -1,59 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# GDIB Content & Document Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A custom-tailored digital portal and Document Management System (DMS) built for the **General Department of Information and Broadcasting (GDIB)** at the Ministry of Information. 
 
-## About Laravel
+This system modernizes internal document routing and public service delivery, transitioning manual, paper-based workflows into a secure, digital-first environment.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Tech Stack
+* **Backend Framework:** Laravel
+* **Admin Panel & Internal UI:** Filament PHP
+* **Frontend (Public Portal):** Vue 3 + Inertia.js
+* **Styling:** Tailwind CSS
+* **Infrastructure:** Docker / Containerized deployment
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Key Features & Modules
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Role-Based Access Control (RBAC)
+Strict hierarchical access mapping to government chain of command:
+* **Admin:** Full system configuration, oversight, and global user management.
+* **Department-Head:** Approval authority, application review, and department-level resource management.
+* **Staff:** Document uploading, drafting, and basic processing capabilities.
 
-## Learning Laravel
+### 2. Document Management System (DMS)
+The core engine for handling official government documents securely.
+* Dynamic categorization via `document_type` (e.g., assignment letters, national IDs).
+* Secure, private local storage for sensitive uploads (files are mapped in the database but protected from public internet access).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 3. Public-Facing Portal & Services
+A decoupled-style SPA for citizens and journalists interacting with the ministry.
+* **Press Reporter Registration:** Fully digital application flow for media credentials.
+* **Document Retrieval:** Public-facing search and filter functionality for verified records.
+* **Digital Payments:** KHQR integration for seamless processing of public service fees.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📊 Current Project Status
+**Overall Completion:** ~70% (Functional Milestone)
 
-## Laravel Sponsors
+- [x] **System Foundation & Database Schema**
+- [x] **Core Admin Panel (Filament)**
+- [x] **User Roles & Permissions (RBAC)**
+- [x] **Media Handling & Secure Uploads**
+- [ ] **Public Portal UI (Vue 3)** - *In Progress*
+- [ ] **Public Document Search/Filter** - *In Progress*
+- [ ] **Press Registration Final Flow** - *In Progress*
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🛠️ Local Installation & Docker Setup
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+This project uses Docker for local development and deployment to ensure environment consistency.
 
-## Contributing
+**1. Clone the repository**
+`git clone https://github.com/yourusername/gdib-cms.git`
+`cd gdib-cms`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**2. Configure Environment**
+`cp .env.example .env`
+*(Update your `.env` file with appropriate database credentials and API keys).*
 
-## Code of Conduct
+**3. Build and spin up containers**
+`docker compose up -d --build`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**4. Install Dependencies**
+`docker compose exec app composer install`
+`docker compose exec app npm install`
 
-## Security Vulnerabilities
+**5. Application Setup**
+`docker compose exec app php artisan key:generate`
+`docker compose exec app php artisan migrate:fresh --seed`
+`docker compose exec app php artisan storage:link`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**6. Build Frontend Assets**
+`docker compose exec app npm run build`
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🔒 Security Note
+Due to the nature of government data, ensure that the `.env` file is never committed to version control and that the `storage` directory has strict permission policies applied in production environments.
