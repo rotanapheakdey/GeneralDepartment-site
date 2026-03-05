@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Post extends Model implements HasMedia
 {
     use InteractsWithMedia;
+    use HasUuids;
 
     protected $fillable = [
         'title',

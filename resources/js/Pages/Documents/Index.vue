@@ -1,75 +1,105 @@
 <script setup>
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, router } from "@inertiajs/vue3";
+import { ref, watch } from "vue";
 
 const props = defineProps({
     documents: Array,
+    filters: Object, // We will send this from the controller
 });
 
-// This helper cleans up the database names for the public
-const formatType = (type) => {
-    const labels = {
-        prakas: "ប្រកាស (Prakas)",
-        sub_decree: "អនុក្រឹត្យ (Sub-decree)",
-        notification: "សេចក្តីជូនដំណឹង (Notification)",
-    };
-    return labels[type] || type;
-};
+const search = ref(props.filters?.search || "");
+
+// This "watches" the search box and reloads the data when you type
+watch(search, (value) => {
+    router.get(
+        "/documents",
+        { search: value },
+        {
+            preserveState: true,
+            replace: true,
+        },
+    );
+});
 </script>
 
 <template>
-    <Head title="GDIB Documents" />
+    <Head title="GDIB | Document Repository" />
 
-    <nav class="bg-white border-b p-4 shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="font-bold text-xl text-blue-900">GDIB PORTAL</div>
-            <div class="space-x-4">
-                <Link href="/" class="text-gray-600">Home</Link>
-                <Link href="/documents" class="text-blue-600 font-bold"
-                    >Documents</Link
-                >
+    <div class="min-h-screen bg-base-200" data-theme="corporate">
+        <div class="navbar bg-base-100 shadow-lg px-8">
+            <div class="flex-1">
+                <a class="text-xl font-bold text-primary">GDIB PORTAL</a>
+            </div>
+            <div class="flex-none">
+                <ul class="menu menu-horizontal px-1">
+                    <li><Link href="/">Home</Link></li>
+                    <li>
+                        <Link href="/documents" class="active">Documents</Link>
+                    </li>
+                </ul>
             </div>
         </div>
-    </nav>
 
-    <main class="py-12 bg-gray-50 min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h1 class="text-2xl font-bold mb-6">Official Announcements</h1>
+        <main class="max-w-7xl mx-auto py-10 px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-extrabold italic text-secondary">
+                    OFFICIAL DOCUMENTS
+                </h1>
 
-            <div class="bg-white shadow rounded-lg p-6">
-                <table class="w-full text-left">
+                <div class="form-control">
+                    <input
+                        v-model="search"
+                        type="text"
+                        placeholder="Search by title..."
+                        class="input input-bordered w-full max-w-xs shadow-sm focus:input-primary"
+                    />
+                </div>
+            </div>
+
+            <div class="overflow-x-auto bg-base-100 rounded-box shadow-xl">
+                <table class="table table-zebra w-full">
                     <thead>
-                        <tr class="border-b text-gray-500 text-sm">
-                            <th class="pb-3">TITLE</th>
-                            <th class="pb-3">TYPE</th>
-                            <th class="pb-3 text-right">ACTION</th>
+                        <tr class="bg-primary text-primary-content">
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th class="text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr
                             v-for="doc in documents"
                             :key="doc.id"
-                            class="border-b last:border-0"
+                            class="hover"
                         >
-                            <td class="py-4 font-medium">{{ doc.title }}</td>
-                            <td class="py-4">
-                                <span
-                                    class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 uppercase"
+                            <td class="font-bold">{{ doc.title }}</td>
+                            <td>
+                                <div
+                                    class="badge badge-outline badge-primary uppercase"
                                 >
                                     {{ doc.document_type }}
-                                </span>
+                                </div>
                             </td>
-                            <td class="py-4 text-right">
+                            <td class="text-right">
                                 <a
                                     :href="'/storage/' + doc.file_path"
                                     target="_blank"
-                                    class="text-blue-600 hover:underline"
-                                    >Download PDF</a
+                                    class="btn btn-sm btn-secondary btn-outline"
                                 >
+                                    View PDF
+                                </a>
+                            </td>
+                        </tr>
+                        <tr v-if="documents.length === 0">
+                            <td
+                                colspan="3"
+                                class="text-center py-10 text-gray-400"
+                            >
+                                No documents found matching your search.
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 </template>
