@@ -1,5 +1,12 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import { useI18n } from "vue-i18n";
+const { locale } = useI18n();
+
+const changeLanguage = (lang) => {
+    locale.value = lang;
+    localStorage.setItem("locale", lang);
+};
 </script>
 
 <template>
@@ -20,7 +27,7 @@ import { Link } from "@inertiajs/vue3";
                             <span
                                 class="text-xl font-bold text-white leading-none"
                             >
-                                អគ្គនាយកដ្ឋានព័ត៌មាន និងសោតទស្សន៍
+                                {{ $t("nav.dept_name") }}
                             </span>
                             <span
                                 class="text-[10px] uppercase tracking-widest text-blue-200 font-medium"
@@ -33,20 +40,46 @@ import { Link } from "@inertiajs/vue3";
                     <div
                         class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-wider"
                     >
-                        <Link href="/" class="hover:text-[#FFD700] transition"
-                            >Home</Link
+                        <Link
+                            href="/"
+                            class="hover:text-[#FFD700] transition"
+                            >{{ $t("nav.home") }}</Link
                         >
                         <Link
                             :href="route('news.index')"
                             class="hover:text-[#FFD700] transition"
-                            >Activities</Link
                         >
-                        <Link href="#" class="hover:text-[#FFD700] transition"
-                            >Services</Link
+                            {{ $t("nav.news") }}
+                        </Link>
+                        <Link
+                            href="#"
+                            class="hover:text-[#FFD700] transition"
+                            >{{ $t("nav.about") }}</Link
                         >
-                        <Link href="#" class="hover:text-[#FFD700] transition"
-                            >About Us</Link
+
+                        <div
+                            class="flex items-center gap-2 ml-4 border-l pl-4 border-slate-300"
                         >
+                            <button
+                                @click="changeLanguage('km')"
+                                :class="{
+                                    'font-bold text-primary': locale === 'km',
+                                }"
+                                class="text-xs hover:text-primary transition-colors"
+                            >
+                                ភាសាខ្មែរ
+                            </button>
+                            <span class="text-slate-300">|</span>
+                            <button
+                                @click="changeLanguage('en')"
+                                :class="{
+                                    'font-bold text-primary': locale === 'en',
+                                }"
+                                class="text-xs hover:text-primary transition-colors"
+                            >
+                                EN
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

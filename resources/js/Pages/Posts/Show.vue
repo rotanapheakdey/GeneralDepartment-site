@@ -1,37 +1,38 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import GovLayout from "@/Layouts/GovLayout.vue";
+import { Head, Link } from "@inertiajs/vue3";
 
-defineProps({ post: Object });
+defineProps({
+    post: Object,
+});
 </script>
 
 <template>
-    <AuthenticatedLayout>
+    <GovLayout>
         <Head :title="post.title" />
 
-        <article class="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden border border-slate-100">
-            <img v-if="post.featured_image_url" :src="post.featured_image_url" class="w-full h-[400px] object-cover" />
-
-            <div class="p-8 md:p-12">
-                <div class="flex items-center gap-4 mb-6">
-                    <span class="badge badge-primary badge-lg px-4 py-3 font-bold">{{ post.category }}</span>
-                    <span class="text-slate-400 text-sm">{{ post.created_at }}</span>
-                </div>
-
-                <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">
-                    {{ post.title }}
-                </h1>
-
-                <div class="prose prose-lg max-w-none text-slate-600 leading-relaxed">
-                    {{ post.content }}
-                </div>
-
-                <div class="mt-12 pt-8 border-t border-slate-100">
-                    <Link href="/posts" class="btn btn-outline btn-primary">
-                        ← Back to News
-                    </Link>
+        <article class="bg-white min-h-screen">
+            <div class="bg-slate-900 text-white py-16">
+                <div class="max-w-4xl mx-auto px-4">
+                    <Link href="/posts" class="text-blue-400 text-sm hover:underline mb-6 inline-block">← Back to News</Link>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="badge badge-primary">{{ post.category }}</span>
+                        <span class="text-slate-400 text-sm">{{ post.created_at }}</span>
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-bold leading-tight">{{ post.title }}</h1>
                 </div>
             </div>
+
+            <div class="max-w-4xl mx-auto px-4 -mt-8">
+                <div v-if="post.featured_image_url" class="rounded-2xl shadow-2xl overflow-hidden mb-12 border-4 border-white">
+                    <img :src="post.featured_image_url" :alt="post.title" class="w-full h-auto object-cover max-h-[500px]" />
+                </div>
+
+                <div
+                    class="prose prose-lg max-w-none prose-slate prose-headings:text-[#002B5B] pb-20"
+                    v-html="post.content"
+                ></div>
+            </div>
         </article>
-    </AuthenticatedLayout>
+    </GovLayout>
 </template>

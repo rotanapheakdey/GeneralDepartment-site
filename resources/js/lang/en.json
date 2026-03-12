@@ -1,0 +1,16 @@
+{
+    "nav": {
+        "home": "Home",
+        "news": "News",
+        "documents": "Documents",
+        "services": "Services",
+        "about": "About Us",
+        "dept_name": "General Department of Information and Broadcasting"
+    },
+    "welcome": {
+        "director_title": "Director's Welcome",
+        "latest_news": "Latest News",
+        "recent_docs": "Recent Documents",
+        "view_all": "View All"
+    }
+}
