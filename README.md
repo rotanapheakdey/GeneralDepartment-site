@@ -188,6 +188,49 @@ The project emphasizes:
 
 ---
 
+## 🧠 Technical Challenges & Solutions
+
+### 1. Framework Integration Conflicts
+
+**The Problem:**  
+Conflict between **Preline UI** and **daisyUI** caused Vite compilation errors and layout shifts.
+
+**The Solution:**  
+Removed the Preline dependency and its JavaScript imports to allow **daisyUI (built on pure Tailwind)** to handle the component logic cleanly.
+
+---
+
+### 2. Environment Synchronization (Docker)
+
+**The Problem:**  
+Running Laravel commands inside a **Dockerized environment (Sail)** versus the local host machine.
+
+**The Source of Confusion:**  
+Errors occurred when running `php artisan` directly instead of `./vendor/bin/sail artisan`.
+
+**The Solution:**  
+Established a consistent workflow using the **Sail wrapper** for all CLI operations to ensure the database and PHP versions matched the container environment.
+
+---
+
+### 3. Data Type Mismatch (Date Casting)
+
+**The Problem:**  
+The `Call to a member function format() on string` error.
+
+**The Technical Cause:**  
+Database timestamps are returned as **strings by default in Eloquent**.
+
+**The Solution:**  
+Implemented **Attribute Casting** in the `Post` model:
+
+```php
+protected $casts = [
+    'published_at' => 'datetime',
+];
+
+---
+
 # 🏛️ Architectural Decisions (March 2026)
 
 - Decoupled **slugs** from the `posts` and `categories` tables to streamline the database schema.
