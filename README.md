@@ -228,6 +228,7 @@ Implemented **Attribute Casting** in the `Post` model:
 protected $casts = [
     'published_at' => 'datetime',
 ];
+```
 
 ---
 
