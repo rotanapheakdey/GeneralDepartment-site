@@ -23,6 +23,11 @@ class Post extends Model implements HasMedia
         'status',
         'published_at'
     ];
+    protected $casts = [
+        'published_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
     /**
      * Relationship: A post belongs to a category.

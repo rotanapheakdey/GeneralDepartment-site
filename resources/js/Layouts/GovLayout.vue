@@ -5,10 +5,10 @@ import Footer from "@/Components/Footer.vue";
 </script>
 
 <template>
-    <div class="min-h-screen bg-slate-50 flex flex-col">
+    <div class="min-h-screen bg-white text-slate-900">
         <Navbar />
 
-        <main class="flex-grow">
+        <main class="min-h-screen bg-base-100 text-base-content">
             <slot />
         </main>
 

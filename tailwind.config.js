@@ -9,7 +9,6 @@ export default {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.vue",
-        "./node_modules/preline/dist/*.js",
     ],
 
     theme: {
@@ -27,11 +26,11 @@ export default {
     plugins: [
         forms,
         typography,
-        // Using the direct path to the plugin logic inside node_modules
-        "./node_modules/preline/plugin.js",
+        require("daisyui")
     ],
-    plugins: [require("daisyui")], 
+
     daisyui: {
-        themes: ["light", "corporate"],
+        themes: ["corporate"], // Only Corporate Light
+        darkTheme: "corporate", // Forces Dark mode users to see Corporate Light
     },
 };

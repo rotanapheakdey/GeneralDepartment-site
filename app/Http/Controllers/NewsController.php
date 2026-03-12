@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Carbon;
 
 class NewsController extends Controller
 {
@@ -39,12 +40,21 @@ class NewsController extends Controller
      */
     public function show(Post $post): Response
     {
-        // We load the media URL for the show page too
+        // Load the category relationship if not already loaded
+        $post->load('category');
+
         return Inertia::render('News/Show', [
-            'post' => array_merge($post->toArray(), [
-                'image' => $post->getFirstMediaUrl('posts'),
-                'category' => $post->category?->name
-            ])
+            'post' => [
+                'id' => $post->id,
+                'title' => $post->title,
+                'content' => $post->content, // The full body
+                'excerpt' => $post->excerpt,
+                'category' => $post->category?->name ?? 'General News',
+                // Added the same fallback logic as index
+                'image' => $post->getFirstMediaUrl('posts') ?: $post->featured_image,
+                // Format date for a cleaner look
+                'created_at' => Carbon::parse($post->published_at ?? $post->created_at)->format('M d, Y'),
+            ]
         ]);
     }
 }
