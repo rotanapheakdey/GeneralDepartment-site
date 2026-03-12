@@ -19,6 +19,12 @@
         "title_column": "Document Title",
         "type_column": "Category",
         "date_column": "Date Published",
-        "download": "Download PDF"
+        "download": "Download PDF",
+        "types": {
+            "prakas": "Prakas",
+            "sub_decree": "Sub-Decree",
+            "notification": "Notification",
+            "directive": "Directive"
+        }
     }
 }

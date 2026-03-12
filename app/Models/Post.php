@@ -7,19 +7,21 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model implements HasMedia
 {
     use InteractsWithMedia;
-    use HasUuids;
+    use HasUuids, HasFactory;
 
     protected $fillable = [
         'title',
-        'slug',
         'content',
-        'status',
+        'excerpt',
         'category_id',
-        'published_at',
+        'featured_image',
+        'status',
+        'published_at'
     ];
 
     /**
@@ -43,5 +45,9 @@ class Post extends Model implements HasMedia
     public function getFeaturedImageUrlAttribute()
     {
         return $this->getFirstMediaUrl('featured_image');
+    }
+    public function getRouteKeyName(): string
+    {
+        return 'id';
     }
 }

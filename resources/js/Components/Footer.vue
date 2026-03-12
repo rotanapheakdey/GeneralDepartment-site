@@ -26,7 +26,9 @@
                     <h4 class="text-sm font-bold uppercase tracking-widest text-[#FFD700]">System Engineer</h4>
                     <p class="text-sm text-slate-400">
                         Designed and Maintained by:<br>
-                        <span class="text-white font-medium italic">Rotana Pheakdey</span>
+                        <span class="text-white font-medium italic">Rotana Pheakdey</span><br>
+                        <span class="text-white font-medium italic">KEO Chournsocheat</span><br>
+                        <span class="text-white font-medium italic">Khom Socheat</span>
                     </p>
                 </div>
             </div>

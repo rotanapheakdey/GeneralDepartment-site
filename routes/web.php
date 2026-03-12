@@ -14,14 +14,13 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
     ]);
 });
-
+// news
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-Route::get('/news/{post:slug}', [NewsController::class, 'show'])->name('news.show');
-Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
+Route::get('/news/{post}', [NewsController::class, 'show'])->name('news.show');Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

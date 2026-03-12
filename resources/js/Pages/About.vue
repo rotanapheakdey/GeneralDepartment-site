@@ -46,11 +46,11 @@ import { Head } from "@inertiajs/vue3";
                             </div>
                             <div>
                                 <p class="text-blue-400 text-sm uppercase">Email</p>
-                                <p>info@gdib.gov.kh</p>
+                                <p>ministry@email.com</p>
                             </div>
                             <div>
                                 <p class="text-blue-400 text-sm uppercase">Phone</p>
-                                <p>+855 23 426 059</p>
+                                <p>+855 12 345 678</p>
                             </div>
                         </div>
                     </div>

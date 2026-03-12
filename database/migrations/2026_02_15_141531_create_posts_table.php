@@ -13,17 +13,19 @@ return new class extends Migration
 {
     Schema::create('posts', function (Blueprint $table) {
         $table->uuid('id')->primary();
-        $table->foreignIdFor(\App\Models\Category::class)->nullable();
+        // Use foreignUuid because your Category model uses HasUuids
+        $table->foreignUuid('category_id')->nullable()->constrained()->onDelete('cascade');
+
         $table->string('title');
-        $table->string('slug')->unique();
-        $table->longText('content'); 
+        $table->longText('content');
         $table->text('excerpt')->nullable();
+
+        // ADD THIS LINE:
+        $table->string('featured_image')->nullable();
+
         $table->timestamp('published_at')->nullable();
-        $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
-
-        // The "Expandable" Magic Column
+        $table->enum('status', ['draft', 'published', 'archived'])->default('published'); // Changed default to published for testing
         $table->json('meta_data')->nullable();
-
         $table->timestamps();
     });
 }

@@ -2,7 +2,7 @@
     "nav": {
         "home": "ទំព័រដើម",
         "news": "ព័ត៌មាន",
-        "documents": "ឯកសារ",
+        "documents": "ឯកសារប្រកាស",
         "services": "សេវាកម្ម",
         "about": "អំពីយើង",
         "dept_name": "អគ្គនាយកដ្ឋានព័ត៌មាន និងសោតទស្សន៍"
@@ -17,8 +17,14 @@
     },
     "documents": {
         "title_column": "ចំណងជើងឯកសារ",
-        "type_column": "ប្រភេទ",
-        "date_column": "កាលបរិច្ឆេទចេញផ្សាយ",
-        "download": "ទាញយក PDF"
+        "type_column": "ប្រភេទឯកសារ",
+        "date_column": "កាលបរិច្ឆេទផ្សព្វផ្សាយ",
+        "download": "ទាញយក PDF",
+        "types": {
+            "prakas": "ប្រកាស",
+            "sub_decree": "អនុក្រឹត្យ",
+            "notification": "សេចក្តីជូនដំណឹង",
+            "directive": "សារាចរ"
+        }
     }
 }

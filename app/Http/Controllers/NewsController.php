@@ -19,13 +19,12 @@ class NewsController extends Controller
             ->get()
             ->map(function ($post) {
                 return [
-                    'id' => $post->id,
+                    'id' => $post->id, // Ensure this is exactly 'id'
                     'title' => $post->title,
-                    'slug' => $post->slug,
                     'excerpt' => $post->excerpt,
                     'category' => $post->category,
-                    // Retrieves the media URL from Spatie Media Library
-                    'image' => $post->getFirstMediaUrl('posts'),
+                    // Fallback for image: if Spatie media is empty, use the dummy URL from featured_image
+                    'image' => $post->getFirstMediaUrl('posts') ?: $post->featured_image,
                     'created_at' => $post->published_at,
                 ];
             });
