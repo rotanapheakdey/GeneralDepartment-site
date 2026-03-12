@@ -8,7 +8,9 @@
         "dept_name": "General Department of Information and Broadcasting"
     },
     "welcome": {
-        "director_title": "Director's Welcome",
+        "director_name": "Rotana Pheakdey",
+        "director_title": "Director of Digital Content",
+        "quote": "\"Our mission at the General Department of Information is to ensure every citizen has access to accurate, timely, and secure digital information.\"",
         "latest_news": "Latest News",
         "recent_docs": "Recent Documents",
         "view_all": "View All"

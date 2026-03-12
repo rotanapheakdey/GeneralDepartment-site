@@ -17,121 +17,244 @@ defineProps({
         <section class="py-16 bg-slate-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                    class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row"
+                    class="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 overflow-hidden flex flex-col md:flex-row border border-white"
                 >
                     <div
-                        class="md:w-1/3 bg-[#002B5B] flex items-center justify-center p-12"
+                        class="md:w-1/3 bg-[#002B5B] relative flex items-center justify-center p-8"
                     >
                         <div
-                            class="aspect-[3/4] w-full bg-slate-200 rounded-lg shadow-inner flex items-center justify-center text-slate-400 italic"
+                            class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
                         >
-                            [ Director Photo ]
+                            <svg width="100%" height="100%">
+                                <pattern
+                                    id="pattern"
+                                    x="0"
+                                    y="0"
+                                    width="40"
+                                    height="40"
+                                    patternUnits="userSpaceOnUse"
+                                >
+                                    <circle cx="2" cy="2" r="1" fill="white" />
+                                </pattern>
+                                <rect
+                                    width="100%"
+                                    height="100%"
+                                    fill="url(#pattern)"
+                                />
+                            </svg>
+                        </div>
+                        <div
+                            class="relative z-10 aspect-[3/4] w-full bg-slate-800 rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden border-2 border-white/20"
+                        >
+                            <span class="text-white/20 italic"
+                                >Rotana Pheakdey</span
+                            >
                         </div>
                     </div>
 
-                    <div class="md:w-2/3 p-12 flex flex-col justify-center">
-                        <h2
-                            class="text-3xl font-bold text-slate-900 mb-6 border-b-2 border-[#D4AF37] pb-4"
+                    <div
+                        class="md:w-2/3 p-8 md:p-16 flex flex-col justify-center"
+                    >
+                        <div
+                            class="inline-block px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-bold uppercase tracking-widest mb-6 w-fit"
                         >
-                            Director's Welcome
+                            {{ $t("welcome.director_title") }}
+                        </div>
+                        <h2
+                            class="text-4xl font-extrabold text-slate-900 mb-6 leading-tight"
+                        >
+                            {{ $t("welcome.director_name") }}'s Welcome
                         </h2>
                         <p
-                            class="text-lg text-slate-700 leading-relaxed mb-6 italic"
+                            class="text-xl text-slate-600 leading-relaxed mb-8 font-serif italic"
                         >
-                            "Our mission at the Department of Digital Content is
-                            to ensure that every citizen has access to accurate,
-                            timely, and secure information."
+                            "{{ $t("welcome.quote") }}"
                         </p>
-                        <div>
-                            <p class="font-bold text-xl text-[#002B5B]">
-                                Rotana Pheakdey
-                            </p>
-                            <p
-                                class="text-[10px] text-slate-500 uppercase tracking-widest leading-tight mt-1"
-                            >
-                                Director of Digital Content <br />
-                                <span class="text-[#D4AF37]"
-                                    >General Department of Information and
-                                    Broadcasting</span
-                                >
-                            </p>
-                        </div>
+                        <div class="h-1 w-20 bg-[#D4AF37] rounded-full"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-12 max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center mb-8">
-                <h3 class="text-2xl font-bold">
-                    {{ $t("welcome.latest_news") }}
-                </h3>
-                <Link href="/posts" class="btn btn-ghost btn-sm"
-                    >View All →</Link
+        <section class="py-20 max-w-7xl mx-auto px-4">
+            <div
+                class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4"
+            >
+                <div>
+                    <h3
+                        class="text-3xl font-black text-slate-900 tracking-tight"
+                    >
+                        {{ $t("welcome.latest_news") }}
+                    </h3>
+                    <p class="text-slate-500 mt-2">
+                        Stay updated with our latest activities and
+                        announcements
+                    </p>
+                </div>
+                <Link
+                    :href="route('news.index')"
+                    class="btn btn-primary btn-outline border-2 rounded-xl px-8 hover:bg-[#002B5B]"
                 >
+                    View All News
+                </Link>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div
                     v-for="post in latestPosts"
                     :key="post.id"
-                    class="card bg-white shadow-sm border border-slate-200"
+                    class="group flex flex-col bg-white rounded-3xl transition-all duration-500 hover:-translate-y-2"
                 >
-                    <figure v-if="post.featured_image">
+                    <div
+                        class="relative h-64 w-full overflow-hidden rounded-3xl shadow-lg"
+                    >
                         <img
+                            v-if="post.featured_image"
                             :src="post.featured_image"
-                            class="h-48 w-full object-cover"
+                            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                    </figure>
-                    <div class="card-body p-4">
-                        <span
-                            class="text-xs font-bold text-blue-600 uppercase"
-                            >{{ post.category }}</span
+                        <div
+                            v-else
+                            class="h-full w-full bg-slate-200 flex items-center justify-center text-slate-400"
                         >
-                        <h2 class="card-title text-md">{{ post.title }}</h2>
-                        <Link
-                            :href="route('news.show', post.id)"
-                            class="text-primary text-sm font-bold mt-2"
+                            No Image
+                        </div>
+
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-[#002B5B] shadow-sm"
+                            >
+                                {{ post.category }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 px-2">
+                        <h2
+                            class="text-xl font-bold text-slate-900 leading-snug group-hover:text-[#002B5B] transition-colors line-clamp-2"
                         >
-                            Read More
-                        </Link>
+                            {{ post.title }}
+                        </h2>
+                        <div class="flex items-center gap-3 mt-4">
+                            <Link
+                                :href="route('news.show', post.id)"
+                                class="text-sm font-bold text-[#D4AF37] flex items-center gap-1 group/link"
+                            >
+                                Read Article
+                                <span
+                                    class="transition-transform group-hover/link:translate-x-1"
+                                    >→</span
+                                >
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-12 bg-white">
+        <section class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4">
-                <h3 class="text-2xl font-bold mb-6">Recent Documents</h3>
-                <div class="overflow-x-auto border rounded-xl">
-                    <table class="table w-full">
-                        <thead class="bg-slate-50">
-                            <tr>
-                                <th>Document Title</th>
-                                <th>Type</th>
-                                <th class="text-right">Download</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="doc in latestDocuments" :key="doc.id">
-                                <td class="font-medium">{{ doc.title }}</td>
-                                <td>
-                                    <span class="badge badge-outline">{{
-                                        doc.document_type
-                                    }}</span>
-                                </td>
-                                <td class="text-right">
-                                    <a
-                                        :href="'/storage/' + doc.file_path"
-                                        target="_blank"
-                                        class="btn btn-xs btn-primary"
-                                        >PDF</a
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="p-3 bg-slate-100 rounded-2xl text-[#002B5B]">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900">
+                        Recent Official Documents
+                    </h3>
+                </div>
+
+                <div
+                    class="bg-slate-50 rounded-[2rem] p-4 md:p-8 border border-slate-100 shadow-inner"
+                >
+                    <div class="overflow-x-auto">
+                        <table
+                            class="table w-full border-separate border-spacing-y-3"
+                        >
+                            <thead>
+                                <tr
+                                    class="text-slate-400 uppercase text-[10px] tracking-[0.2em] border-none"
+                                >
+                                    <th class="bg-transparent">
+                                        Document Title
+                                    </th>
+                                    <th class="bg-transparent">Type</th>
+                                    <th class="bg-transparent text-right">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    v-for="doc in latestDocuments"
+                                    :key="doc.id"
+                                    class="group shadow-sm hover:shadow-md transition-all"
+                                >
+                                    <td
+                                        class="bg-white rounded-l-2xl py-5 font-semibold text-slate-700"
                                     >
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        {{ doc.title }}
+                                    </td>
+                                    <td class="bg-white">
+                                        <span
+                                            class="px-3 py-1 bg-slate-100 text-slate-500 rounded-lg text-xs font-medium"
+                                            >{{ doc.document_type }}</span
+                                        >
+                                    </td>
+                                    <td
+                                        class="bg-white rounded-r-2xl text-right"
+                                    >
+                                        <a
+                                            :href="'/storage/' + doc.file_path"
+                                            target="_blank"
+                                            class="btn btn-circle btn-ghost btn-sm text-primary"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-5 w-5"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                                                />
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
     </GovLayout>
 </template>
+<style scoped>
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>

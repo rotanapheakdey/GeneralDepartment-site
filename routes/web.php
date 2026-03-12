@@ -29,6 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
+
 // Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 // Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
