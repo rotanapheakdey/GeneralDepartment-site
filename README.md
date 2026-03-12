@@ -3,19 +3,15 @@
 A modern **content management and public information portal** built with Laravel and Vue.  
 This system provides a bilingual platform for publishing government news, official documents, and public announcements.
 
-Designed and developed by **Rotana Pheakdey (ភក្តី រតនា)**.
+Developed as part of a **Web Development Frameworks Assignment (March 2026)**.
 
 ---
 
-## 🧑‍💻 Project Information
+## 👥 Group Members
 
-| Field | Details |
-|------|--------|
-| Project Name | GDIB Content Management System |
-| Lead Developer | Rotana Pheakdey (ភក្តី រតនា) |
-| Role | Full-stack System Engineer |
-| Academic Context | Web Development Frameworks Assignment |
-| Date | March 2026 |
+- **Rotana Pheakdey (ភក្តី រតនា)**
+- **KEO Chournsocheat (កែវ ជួនសុជាតិ)**
+- **Khom Socheat (ខុម សុជាត)**
 
 ---
 
@@ -108,33 +104,58 @@ Decoupled footer containing:
 ```bash
 git clone https://github.com/your-username/GDIB-Portal.git
 cd GDIB-Portal
+```
 
-2.  **Start the environment (Sail/Docker):**
-    ```bash
-    ./vendor/bin/sail up -d
-    ```
+### 2. Start Docker Environment
 
-3.  **Install dependencies:**
-    ```bash
-    sail npm install
-    sail composer install
-    ```
+```bash
+./vendor/bin/sail up -d
+```
 
-4.  **Application Setup**
-    ```bash
-    sail artisan key:generate
-    sail artisan migrate --seed
-    sail artisan storage:link
-    ```
+### 3. Install Dependencies
 
-5.  **Compile Assets:**
-    ```bash
-    sail npm run dev
-    ```
+```bash
+sail composer install
+sail npm install
+```
 
-## 🌐 Routes
-* **Public Portal:** `http://localhost/`
-* **Admin Dashboard:** `http://localhost/admin`
+### 4. Application Setup
+
+```bash
+sail artisan key:generate
+sail artisan migrate --seed
+sail artisan storage:link
+```
+
+### 5. Compile Frontend Assets
+
+```bash
+sail npm run dev
+```
 
 ---
-*Developed for General Department of Information and Broadcasting.*
+
+## 🌐 Application Routes
+
+| Service | URL |
+|------|------|
+| Public Portal | http://localhost |
+| Admin Dashboard | http://localhost/admin |
+
+---
+
+## 📌 Development Notes
+
+The project emphasizes:
+
+- Clean component-based architecture
+- Reusable Vue components
+- Modern Laravel development practices
+- Government-style UI presentation
+- Maintainable modular design
+
+---
+
+## 📄 License
+
+This project was created for **academic and demonstration purposes**.
