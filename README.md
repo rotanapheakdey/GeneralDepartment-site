@@ -7,7 +7,7 @@ Developed as part of a **Web Development Frameworks Assignment (March 2026)**.
 
 ---
 
-## 👥 Group Members
+# 👥 Group Members
 
 - **Rotana Pheakdey (ភក្តី រតនា)**
 - **KEO Chournsocheat (កែវ ជួនសុជាតិ)**
@@ -15,7 +15,7 @@ Developed as part of a **Web Development Frameworks Assignment (March 2026)**.
 
 ---
 
-## 🏗️ System Architecture
+# 🏗️ System Architecture
 
 This project follows a **Modular Component-Driven Architecture**.
 
@@ -25,29 +25,31 @@ The system is structured as a **monolithic SPA using Laravel + Inertia + Vue**, 
 
 ---
 
-## ⚙️ Tech Stack
+# ⚙️ Tech Stack
 
 ### Backend
 - Laravel 11
-- Filament PHP v3 (Admin CMS)
+- Filament PHP v3
+- Spatie Media Library
 - Laravel Sail (Docker)
 
 ### Frontend
-- Vue.js 3
+- Vue.js 3 (Composition API)
 - Inertia.js
 
 ### UI & Styling
 - Tailwind CSS
 - daisyUI (Custom theme)
 
-### Additional Tools
-- vue-i18n for internationalization
-- Spatie Media Library for image and file management
-- UUID routing for enhanced security
+### Routing
+- Ziggy Vue (Laravel named routes inside Vue)
+
+### Internationalization
+- vue-i18n with persistent locale storage
 
 ---
 
-## 🧩 Core Components
+# 🧩 Core Components
 
 ### `GovLayout.vue`
 The main layout shell responsible for structuring:
@@ -69,7 +71,7 @@ Decoupled footer containing:
 
 ---
 
-## 🌟 Key Features
+# 🌟 Key Features
 
 ### 🌐 Bilingual Interface
 - Khmer and English support
@@ -85,19 +87,22 @@ Decoupled footer containing:
 
 ### 📰 Dynamic News Engine
 - Full CRUD functionality
-- Featured image support
-- Media management via Spatie Media Library
+- Featured image upload
+- Media management via **Spatie Media Library**
 
 ### 📄 Document Repository
 - Organized storage for official **Prakas** and PDF documents
 - Public document downloads
 
 ### 🔐 Security
-- Public routes use **UUIDs** to prevent ID enumeration attacks
+
+**Slugless UUID Routing:**  
+Public routes use UUIDs exclusively for lookups (for example `/news/{uuid}`).  
+This enhances security by preventing ID enumeration and simplifies the content workflow by removing the need for manual slug management.
 
 ---
 
-## 🛠️ Installation & Setup (Laravel Sail / Docker)
+# 🛠️ Installation & Setup (Laravel Sail / Docker)
 
 ### 1. Clone the Repository
 
@@ -106,11 +111,15 @@ git clone https://github.com/your-username/GDIB-Portal.git
 cd GDIB-Portal
 ```
 
+---
+
 ### 2. Start Docker Environment
 
 ```bash
 ./vendor/bin/sail up -d
 ```
+
+---
 
 ### 3. Install Dependencies
 
@@ -119,13 +128,18 @@ sail composer install
 sail npm install
 ```
 
+---
+
 ### 4. Application Setup
 
 ```bash
 sail artisan key:generate
 sail artisan migrate --seed
 sail artisan storage:link
+sail artisan route:clear
 ```
+
+---
 
 ### 5. Compile Frontend Assets
 
@@ -135,7 +149,25 @@ sail npm run dev
 
 ---
 
-## 🌐 Application Routes
+# ⚡ Developer Quick-Start
+
+If you need to **reset the entire project and reseed the database**, run the following command:
+
+```bash
+# Full Reset & Seed (The "Fresh Start" Command)
+sail artisan migrate:fresh --seed && sail artisan storage:link && sail artisan route:clear
+```
+
+This command will:
+
+- Reset the database
+- Reseed all data
+- Re-link storage
+- Clear cached routes
+
+---
+
+# 🌐 Application Routes
 
 | Service | URL |
 |------|------|
@@ -144,7 +176,7 @@ sail npm run dev
 
 ---
 
-## 📌 Development Notes
+# 📌 Development Notes
 
 The project emphasizes:
 
@@ -156,6 +188,14 @@ The project emphasizes:
 
 ---
 
-## 📄 License
+# 🏛️ Architectural Decisions (March 2026)
+
+- Decoupled **slugs** from the `posts` and `categories` tables to streamline the database schema.
+- Implemented `getRouteKeyName()` in Laravel Models to ensure seamless **Route Model Binding with UUIDs**.
+- Configured **Spatie Media Library fallbacks** to support both seeded dummy images and uploaded production media.
+
+---
+
+# 📄 License
 
 This project was created for **academic and demonstration purposes**.
