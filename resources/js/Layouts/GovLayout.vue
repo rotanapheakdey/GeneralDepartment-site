@@ -52,6 +52,12 @@ const changeLanguage = (lang) => {
                             {{ $t("nav.news") }}
                         </Link>
                         <Link
+                            :href="route('documents.index')"
+                            class="hover:text-[#FFD700] transition"
+                        >
+                            {{ $t("nav.documents") }}
+                        </Link>
+                        <Link
                             href="#"
                             class="hover:text-[#FFD700] transition"
                             >{{ $t("nav.about") }}</Link

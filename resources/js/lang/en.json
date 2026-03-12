@@ -12,5 +12,11 @@
         "latest_news": "Latest News",
         "recent_docs": "Recent Documents",
         "view_all": "View All"
+    },
+    "documents": {
+        "title_column": "Document Title",
+        "type_column": "Category",
+        "date_column": "Date Published",
+        "download": "Download PDF"
     }
 }
