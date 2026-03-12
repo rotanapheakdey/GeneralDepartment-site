@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "@tailwindcss/typography": "^0.5.19",
+        "lodash": "^4.17.23",
         "preline": "^4.0.1"
     }
 }

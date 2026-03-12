@@ -1,105 +1,71 @@
 <script setup>
 import { Head, Link, router } from "@inertiajs/vue3";
 import { ref, watch } from "vue";
+import { debounce } from "lodash";
 
 const props = defineProps({
     documents: Array,
-    filters: Object, // We will send this from the controller
+    filters: Object,
 });
 
 const search = ref(props.filters?.search || "");
 
-// This "watches" the search box and reloads the data when you type
-watch(search, (value) => {
-    router.get(
-        "/documents",
-        { search: value },
-        {
-            preserveState: true,
-            replace: true,
-        },
-    );
-});
+// Request new data when searching
+watch(search, debounce((value) => {
+    router.get('/documents', { search: value }, { preserveState: true, replace: true });
+}, 300));
+
+// Helper to make the Type look nice
+const formatType = (type) => {
+    const types = {
+        'prakas': 'ប្រកាស (Prakas)',
+        'sub_decree': 'អនុក្រឹត្យ (Sub-decree)',
+        'notification': 'សេចក្តីជូនដំណឹង (Notification)'
+    };
+    return types[type] || type;
+};
 </script>
 
 <template>
-    <Head title="GDIB | Document Repository" />
+    <Head title="ឯកសារសាធារណៈ" />
 
-    <div class="min-h-screen bg-base-200" data-theme="corporate">
-        <div class="navbar bg-base-100 shadow-lg px-8">
-            <div class="flex-1">
-                <a class="text-xl font-bold text-primary">GDIB PORTAL</a>
-            </div>
-            <div class="flex-none">
-                <ul class="menu menu-horizontal px-1">
-                    <li><Link href="/">Home</Link></li>
-                    <li>
-                        <Link href="/documents" class="active">Documents</Link>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <main class="max-w-7xl mx-auto py-10 px-4">
-            <div class="flex justify-between items-center mb-8">
-                <h1 class="text-3xl font-extrabold italic text-secondary">
-                    OFFICIAL DOCUMENTS
-                </h1>
+    <div class="min-h-screen bg-slate-50 py-12 px-4" data-theme="corporate">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h1 class="text-4xl font-black text-slate-900 mb-2">បណ្ណាល័យឯកសារ</h1>
+                    <p class="text-slate-500">ស្វែងរក និងទាញយកឯកសារផ្លូវការ (Official Documents)</p>
+                </div>
 
                 <div class="form-control">
-                    <input
-                        v-model="search"
-                        type="text"
-                        placeholder="Search by title..."
-                        class="input input-bordered w-full max-w-xs shadow-sm focus:input-primary"
-                    />
+                    <input v-model="search" type="text" placeholder="ស្វែងរកចំណងជើង..." class="input input-bordered w-72 shadow-sm p-4" />
                 </div>
             </div>
 
-            <div class="overflow-x-auto bg-base-100 rounded-box shadow-xl">
-                <table class="table table-zebra w-full">
-                    <thead>
-                        <tr class="bg-primary text-primary-content">
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th class="text-right">Action</th>
+            <div class="card bg-white shadow-xl border border-slate-200">
+                <table class="table w-full">
+                    <thead class="bg-slate-50">
+                        <tr class="text-slate-600">
+                            <th>ចំណងជើង (Title)</th>
+                            <th>ប្រភេទ (Type)</th>
+                            <th>កាលបរិច្ឆេទ (Date)</th>
+                            <th class="text-right">ទាញយក (Download)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            v-for="doc in documents"
-                            :key="doc.id"
-                            class="hover"
-                        >
-                            <td class="font-bold">{{ doc.title }}</td>
-                            <td>
-                                <div
-                                    class="badge badge-outline badge-primary uppercase"
-                                >
-                                    {{ doc.document_type }}
-                                </div>
-                            </td>
-                            <td class="text-right">
-                                <a
-                                    :href="'/storage/' + doc.file_path"
-                                    target="_blank"
-                                    class="btn btn-sm btn-secondary btn-outline"
-                                >
-                                    View PDF
+                        <tr v-for="doc in documents" :key="doc.id" class="hover:bg-slate-50">
+                            <td class="font-bold text-slate-800">{{ doc.title }}</td>
+                            <td><span class="badge badge-outline">{{ formatType(doc.document_type) }}</span></td>
+                            <td class="text-slate-500">{{ doc.published_date }}</td>
+                            <td class="text-right">sa
+                                <a :href="doc.file_url" target="_blank" class="btn btn-primary btn-sm">
+                                    PDF
                                 </a>
-                            </td>
-                        </tr>
-                        <tr v-if="documents.length === 0">
-                            <td
-                                colspan="3"
-                                class="text-center py-10 text-gray-400"
-                            >
-                                No documents found matching your search.
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </main>
+        </div>
     </div>
 </template>

@@ -37,4 +37,11 @@ class Post extends Model implements HasMedia
     {
         return str($this->content)->stripTags()->limit(150);
     }
+
+    protected $appends = ['featured_image_url'];
+
+    public function getFeaturedImageUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('featured_image');
+    }
 }
