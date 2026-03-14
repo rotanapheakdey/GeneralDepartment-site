@@ -26,24 +26,12 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                // 1. Add Title
+                // 1. Cleaned up Title 
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(
-                        fn(string $operation, $state, Forms\Set $set) =>
-                        $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null
-                    )
                     ->label('ចំណងជើងអត្ថបទ (Title)'),
 
-                // 2. Add Slug
-                Forms\Components\TextInput::make('slug')
-                    ->disabled()
-                    ->dehydrated()
-                    ->required()
-                    ->unique(Post::class, 'slug', ignoreRecord: true),
-
-                // 3. Add Category & Status
+                // 2. Category & Status
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
                     ->preload()
@@ -60,7 +48,7 @@ class PostResource extends Resource
                     ->required()
                     ->default('draft'),
 
-                // 4. Add Content
+                // 3. Content
                 Forms\Components\RichEditor::make('content')
                     ->required()
                     ->columnSpanFull()

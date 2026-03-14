@@ -17,8 +17,8 @@ class NewsController extends Controller
         $posts = Post::with('category')
             ->where('status', 'published')
             ->latest('published_at')
-            ->get()
-            ->map(function ($post) {
+            ->paginate(9)
+            ->through(function ($post) {
                 return [
                     'id' => $post->id, // Ensure this is exactly 'id'
                     'title' => $post->title,

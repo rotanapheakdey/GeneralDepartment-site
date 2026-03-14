@@ -2,23 +2,23 @@
     "nav": {
         "home": "Home",
         "news": "News",
-        "documents": "Documents",
+        "documents": "Documents & Prakas",
         "services": "Services",
         "about": "About Us",
-        "dept_name": "General Department of Information and Broadcasting"
+        "dept_name": "General Department of Information and Audiovisual"
     },
     "welcome": {
-        "director_name": "Rotana Pheakdey",
-        "director_title": "Director of Digital Content",
-        "quote": "\"Our mission at the General Department of Information is to ensure every citizen has access to accurate, timely, and secure digital information.\"",
+        "director_name": "Pheakdey Rotana",
+        "director_title": "Head of Digital Content",
+        "quote": "«Our mission at the General Department of Information is to ensure that every citizen receives accurate, timely, and secure digital information.»",
         "latest_news": "Latest News",
         "recent_docs": "Recent Documents",
         "view_all": "View All"
     },
     "documents": {
         "title_column": "Document Title",
-        "type_column": "Category",
-        "date_column": "Date Published",
+        "type_column": "Document Type",
+        "date_column": "Published Date",
         "download": "Download PDF",
         "types": {
             "prakas": "Prakas",

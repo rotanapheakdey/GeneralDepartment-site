@@ -3,7 +3,6 @@
         <Head title="Department Activities" />
 
         <div class="max-w-7xl mx-auto px-4 py-12 bg-base-100 text-base-content">
-
             <div class="mb-12 border-b-2 border-base-300 pb-6">
                 <h1 class="text-4xl font-extrabold text-base-content uppercase tracking-tight">
                     Recent Activities
@@ -15,23 +14,16 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div
-                    v-for="post in posts"
-    :key="post.id"
-    class="group flex flex-col h-full bg-base-100 border border-base-300 shadow-sm rounded-xl hover:shadow-md transition"
+                    v-for="post in posts.data"
+                    :key="post.id"
+                    class="group flex flex-col h-full bg-base-100 border border-base-300 shadow-sm rounded-xl hover:shadow-md transition"
                 >
                     <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-t-xl bg-base-200">
                         <img
-                            v-if="post?.image"
-                            :src="post.image"
+                            :src="post.image ? post.image : 'https://placehold.co/600x400/002B5B/FFFFFF?text=News+Update'"
                             class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
                             alt="Activity Image"
                         />
-                        <div
-                            v-else
-                            class="w-full h-48 flex items-center justify-center text-base-content opacity-40"
-                        >
-                            <span class="text-xs font-bold uppercase tracking-widest">No Media</span>
-                        </div>
                     </div>
 
                     <div class="p-4 md:p-6 flex-1 flex flex-col">
@@ -58,6 +50,24 @@
                     </div>
                 </div>
             </div>
+
+            <div v-if="posts.links && posts.links.length > 3" class="mt-12 flex justify-center gap-2 flex-wrap">
+                <template v-for="(link, index) in posts.links" :key="index">
+                    <Link
+                        v-if="link.url"
+                        :href="link.url"
+                        class="btn btn-sm"
+                        :class="link.active ? 'btn-primary' : 'btn-outline border-base-300'"
+                        v-html="link.label"
+                    ></Link>
+                    <span
+                        v-else
+                        class="btn btn-sm btn-disabled"
+                        v-html="link.label"
+                    ></span>
+                </template>
+            </div>
+
         </div>
     </GovLayout>
 </template>
@@ -67,6 +77,6 @@ import GovLayout from "@/Layouts/GovLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
-    posts: Array,
+    posts: Object,
 });
 </script>

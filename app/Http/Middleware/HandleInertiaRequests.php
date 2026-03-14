@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -34,6 +35,12 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'settings' => Setting::all()->mapWithKeys(function ($setting) {
+                return [$setting->key => [
+                    'km' => $setting->value_km,
+                    'en' => $setting->value_en,
+                ]];
+            }),
         ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -7,20 +8,14 @@ use Inertia\Inertia;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\PostController;
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
-Route::get('/', function () {
-    return Inertia::render('Department/Welcome', [
-        'canLogin' => Route::has('login'),
-    ]);
-});
 // news
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-Route::get('/news/{post}', [NewsController::class, 'show'])->name('news.show');Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
+Route::get('/news/{post}', [NewsController::class, 'show'])->name('news.show');
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+// documents
+Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,11 +24,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/about', function () {
-    return Inertia::render('About');
+    return inertia('About/Index');
 })->name('about');
-
-
-// Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-// Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 require __DIR__.'/auth.php';
