@@ -78,6 +78,8 @@ Decoupled footer containing:
 - Flag-based language toggle
 - Persistent locale storage
 - Script-optimized fonts
+- Proper text direction handling
+- Seamless content switching 
 
 ### 🎨 Premium UI / UX
 - Custom-designed news cards
