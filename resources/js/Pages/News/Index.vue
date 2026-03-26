@@ -51,22 +51,9 @@
                 </div>
             </div>
 
-            <div v-if="posts.links && posts.links.length > 3" class="mt-12 flex justify-center gap-2 flex-wrap">
-                <template v-for="(link, index) in posts.links" :key="index">
-                    <Link
-                        v-if="link.url"
-                        :href="link.url"
-                        class="btn btn-sm"
-                        :class="link.active ? 'btn-primary' : 'btn-outline border-base-300'"
-                        v-html="link.label"
-                    ></Link>
-                    <span
-                        v-else
-                        class="btn btn-sm btn-disabled"
-                        v-html="link.label"
-                    ></span>
-                </template>
-            </div>
+            <div class="mt-8 mb-12">
+    <Pagination :links="posts.links" />
+</div>
 
         </div>
     </GovLayout>
@@ -75,7 +62,7 @@
 <script setup>
 import GovLayout from "@/Layouts/GovLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
-
+import Pagination from "@/Components/Pagination.vue";
 defineProps({
     posts: Object,
 });

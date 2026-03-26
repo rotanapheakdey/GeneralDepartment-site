@@ -16,8 +16,9 @@ class DocumentController extends Controller
                 $query->where('title', 'like', "%{$search}%");
             })
             ->latest()
-            ->get()
-            ->map(fn($doc) => [
+            ->paginate(10)
+            ->withQueryString()
+            ->through(fn($doc) => [
                 'id' => $doc->id,
                 'title' => $doc->title,
                 'document_type' => $doc->document_type,
