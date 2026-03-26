@@ -1,20 +1,17 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import { useI18n } from "vue-i18n";
+import { ref, computed } from "vue";
+
 const { locale } = useI18n();
-import { ref } from "vue";
+
+// 1. EXPLICITLY GRAB SETTINGS HERE (This fixes the blank data issue)
+const settings = computed(() => usePage().props.settings || {});
 
 const changeLanguage = (lang) => {
     locale.value = lang;
     localStorage.setItem("locale", lang);
 };
-
-const currentDate = new Date().toLocaleDateString("km-KH", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-});
 
 const isMobileMenuOpen = ref(false);
 </script>
@@ -25,50 +22,25 @@ const isMobileMenuOpen = ref(false);
     >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <Link href="/" class="flex items-center gap-4 group">
-                    <div class="md:hidden flex items-center">
-                        <button
-                            @click="isMobileMenuOpen = !isMobileMenuOpen"
-                            class="text-white focus:outline-none"
-                        >
-                            <svg
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    v-if="!isMobileMenuOpen"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                                <path
-                                    v-else
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
-                        </button>
-                    </div>
+                <Link href="/" class="flex items-center gap-3">
+                    <img
+                        v-if="settings.site_logo?.image_url"
+                        :src="settings.site_logo.image_url"
+                        alt="Department Logo"
+                        class="h-12 w-auto object-contain bg-white p-1 rounded"
+                    />
                     <div
-                        class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#002B5B] font-bold shadow-sm transition-transform group-hover:scale-105"
+                        v-else
+                        class="w-12 h-12 bg-[#FFD700] text-[#002B5B] rounded-lg flex items-center justify-center font-bold text-xl"
                     >
-                        MOI
+                        GD
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl font-bold text-white leading-none">
-                            {{ $t("nav.dept_name") }}
-                        </span>
-                        <span
-                            class="text-[10px] uppercase tracking-widest text-blue-200 font-medium"
-                        >
-                            General Department of Information and Broadcasting
-                        </span>
-                    </div>
+
+                    <h1 class="font-bold text-lg leading-tight text-white">
+                        {{
+                            settings.dept_name?.[locale] || "General Department"
+                        }}
+                    </h1>
                 </Link>
 
                 <div
@@ -143,28 +115,85 @@ const isMobileMenuOpen = ref(false);
                         </button>
                     </div>
                 </div>
+
+                <div class="md:hidden flex items-center gap-4">
+                    <button
+                        @click="isMobileMenuOpen = !isMobileMenuOpen"
+                        class="text-white hover:text-[#FFD700] focus:outline-none"
+                    >
+                        <svg
+                            class="h-8 w-8"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                v-if="!isMobileMenuOpen"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"
+                            />
+                            <path
+                                v-else
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            v-show="isMobileMenuOpen"
+            class="md:hidden bg-[#002B5B] border-t border-white/10 px-4 py-4 space-y-2 text-white"
+        >
+            <Link href="/" class="block py-2 hover:text-[#FFD700]">{{
+                $t("nav.home")
+            }}</Link>
+            <Link
+                :href="route('news.index')"
+                class="block py-2 hover:text-[#FFD700]"
+                >{{ $t("nav.news") }}</Link
+            >
+            <Link
+                :href="route('documents.index')"
+                class="block py-2 hover:text-[#FFD700]"
+                >{{ $t("nav.documents") }}</Link
+            >
+            <Link
+                :href="route('about')"
+                class="block py-2 hover:text-[#FFD700]"
+                >{{ $t("nav.about") }}</Link
+            >
+
+            <div class="flex gap-4 pt-4 mt-2 border-t border-white/10">
+                <button
+                    @click="changeLanguage('km')"
+                    class="flex items-center gap-2 text-sm"
+                    :class="locale === 'km' ? 'text-[#FFD700]' : 'opacity-70'"
+                >
+                    <img
+                        src="https://flagcdn.com/w40/kh.png"
+                        class="w-5 h-5 rounded-full object-cover"
+                    />
+                    Khmer
+                </button>
+                <button
+                    @click="changeLanguage('en')"
+                    class="flex items-center gap-2 text-sm"
+                    :class="locale === 'en' ? 'text-[#FFD700]' : 'opacity-70'"
+                >
+                    <img
+                        src="https://flagcdn.com/w40/us.png"
+                        class="w-5 h-5 rounded-full object-cover"
+                    />
+                    English
+                </button>
             </div>
         </div>
     </nav>
-    <div
-        v-show="isMobileMenuOpen"
-        class="md:hidden bg-[#002B5B] border-t border-white/10 px-4 py-4 space-y-2"
-    >
-        <Link href="/" class="block py-2 hover:text-[#FFD700]">{{
-            $t("nav.home")
-        }}</Link>
-        <Link
-            :href="route('news.index')"
-            class="block py-2 hover:text-[#FFD700]"
-            >{{ $t("nav.news") }}</Link
-        >
-        <Link
-            :href="route('documents.index')"
-            class="block py-2 hover:text-[#FFD700]"
-            >{{ $t("nav.documents") }}</Link
-        >
-        <Link :href="route('about')" class="block py-2 hover:text-[#FFD700]">{{
-            $t("nav.about")
-        }}</Link>
-    </div>
 </template>

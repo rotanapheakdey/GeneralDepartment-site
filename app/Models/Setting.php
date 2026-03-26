@@ -3,16 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Setting extends Model
+class Setting extends Model implements HasMedia
 {
-    use HasFactory;
-    //
+    use InteractsWithMedia;
 
-    protected $fillable = [
-        'key',
-        'value_km',
-        'value_en',
-    ];
+    protected $fillable = ['key', 'value_km', 'value_en'];
 }

@@ -21,6 +21,17 @@ class SettingSeeder extends Seeder
                 'value_km' => 'ភក្តី រតនា',
                 'value_en' => 'Pheakdey Rotana'
             ],
+            // --- THE NEW IMAGE KEYS ---
+            [
+                'key' => 'site_logo',
+                'value_km' => 'ឡូហ្គោគេហទំព័រ (សូមបញ្ចូលរូបភាព)',
+                'value_en' => 'Site Logo (Please upload an image)'
+            ],
+            [
+                'key' => 'director_image',
+                'value_km' => 'រូបថតអគ្គនាយក (សូមបញ្ចូលរូបភាព)',
+                'value_en' => 'Director Image (Please upload an image)'
+            ],
             // --- PROFESSIONAL DUMMY DATA ---
             [
                 'key' => 'director_title',
