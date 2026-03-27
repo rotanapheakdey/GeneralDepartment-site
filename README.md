@@ -1,247 +1,208 @@
-# GDIB Public Information Portal
+# 🇰🇭 GDIB Public Information Portal
 
-A modern **content management and public information portal** built with Laravel and Vue.  
-This system provides a bilingual platform for publishing government news, official documents, and public announcements.
+A modern **Content Management System (CMS)** and public information platform developed for the **General Department of Information and Broadcasting (GDIB)**.
 
-Developed as part of a **Web Development Frameworks Assignment (March 2026)**.
+This project delivers a **bilingual (Khmer / English)** digital solution for publishing:
 
----
+* Government news
+* Official documents (*Prakas*)
+* Public announcements
 
-# 👥 Group Members
+Built with a focus on **performance, usability, and maintainability**, the system reflects real-world government portal requirements while demonstrating full-stack development capability.
 
-- **Rotana Pheakdey (ភក្តី រតនា)**
-- **KEO Chournsocheat (កែវ ជួនសុជាតិ)**
-- **Khom Socheat (ខុម សុជាត)**
-
----
-
-# 🏗️ System Architecture
-
-This project follows a **Modular Component-Driven Architecture**.
-
-Navigation and footer components are separated from the main layout to improve maintainability and enforce the **DRY (Don't Repeat Yourself)** principle.
-
-The system is structured as a **monolithic SPA using Laravel + Inertia + Vue**, combining backend and frontend into a seamless application.
+**Project Type:** Academic Assignment (March 2026)
+**Status:** Actively Developed
 
 ---
 
-# ⚙️ Tech Stack
+## 👥 Development Team
 
-### Backend
-- Laravel 11
-- Filament PHP v3
-- Spatie Media Library
-- Laravel Sail (Docker)
-
-### Frontend
-- Vue.js 3 (Composition API)
-- Inertia.js
-
-### UI & Styling
-- Tailwind CSS
-- daisyUI (Custom theme)
-
-### Routing
-- Ziggy Vue (Laravel named routes inside Vue)
-
-### Internationalization
-- vue-i18n with persistent locale storage
+* **Rotana Pheakdey (ភក្តី រតនា)** — Lead Developer / Backend Architect
+* **KEO Chournsocheat (កែវ ជួនសុជាតិ)** — Frontend / UI Designer
+* **Khom Socheat (ខុម សុជាត)** — QA / Documentation
 
 ---
 
-# 🧩 Core Components
+## ⚙️ Tech Stack
 
-### `GovLayout.vue`
-The main layout shell responsible for structuring:
-- Navigation
-- Page content
-- Footer
-
-### `Navbar.vue`
-Centralized navigation logic featuring:
-- 🇰🇭 Khmer / 🇺🇸 English language switcher
-- Sticky navigation bar
-- Dynamic active-route highlighting
-
-### `Footer.vue`
-Decoupled footer containing:
-- Organizational credits
-- Developer attribution
-- Branding
+| Layer        | Technology                                        |
+| ------------ | ------------------------------------------------- |
+| Backend      | Laravel 11, Filament PHP v3, Spatie Media Library |
+| Frontend     | Vue.js 3 (Composition API), Inertia.js, Ziggy     |
+| Styling      | Tailwind CSS, daisyUI (Custom Theme)              |
+| Environment  | Laravel Sail (Docker)                             |
+| Localization | vue-i18n (Persistent Locale)                      |
 
 ---
 
-# 🌟 Key Features
+## 🏗️ Architecture & Design
 
-### 🌐 Bilingual Interface
-- Khmer and English support
-- Flag-based language toggle
-- Persistent locale storage
-- Script-optimized fonts
-- Proper text direction handling
-- Seamless content switching 
+This project follows a **Monolithic SPA architecture using Inertia.js**, allowing seamless integration between Laravel and Vue.js while maintaining a single codebase.
 
-### 🎨 Premium UI / UX
-- Custom-designed news cards
-- Glassmorphism badges
-- Hover-lift transitions
-- Card-style data tables
+### Key Highlights
 
-### 📰 Dynamic News Engine
-- Full CRUD functionality
-- Featured image upload
-- Media management via **Spatie Media Library**
+* **Single-Page Application (SPA) Experience**
+  Fast navigation without full page reloads using Inertia.js
 
-### 📄 Document Repository
-- Organized storage for official **Prakas** and PDF documents
-- Public document downloads
+* **Reusable Layout System**
+  `GovLayout.vue` centralizes layout structure (Navbar + Footer)
+  → Enforces DRY principle and clean separation of concerns
 
-### 🔐 Security
+* **Secure Routing Strategy**
+  UUID-based routing:
 
-**Slugless UUID Routing:**  
-Public routes use UUIDs exclusively for lookups (for example `/news/{uuid}`).  
-This enhances security by preventing ID enumeration and simplifies the content workflow by removing the need for manual slug management.
+  ```
+  /news/{uuid}
+  ```
+
+  * Prevents ID enumeration
+  * Removes dependency on slugs
+  * Improves security and scalability
+
+* **Component-Based UI**
+  Modular Vue components ensure maintainability and scalability
 
 ---
 
-# 🛠️ Installation & Setup (Laravel Sail / Docker)
+## ✅ Core Features
 
-### 1. Clone the Repository
+* **Bilingual System**
 
-```bash
-git clone https://github.com/your-username/GDIB-Portal.git
-cd GDIB-Portal
-```
+  * Khmer / English toggle
+  * Persistent language preference (local storage)
 
----
+* **News Management System**
 
-### 2. Start Docker Environment
+  * Full CRUD operations
+  * Image upload & processing via Spatie Media Library
 
-```bash
-./vendor/bin/sail up -d
-```
+* **Admin Dashboard**
 
----
+  * Built with Filament PHP
+  * Clean and structured content management interface
 
-### 3. Install Dependencies
+* **Document Repository**
 
-```bash
-sail composer install
-sail npm install
-```
+  * Organized storage of official PDFs (*Prakas*)
+  * Easy public access and download
 
----
+* **Modern UI/UX**
 
-### 4. Application Setup
-
-```bash
-sail artisan key:generate
-sail artisan migrate --seed
-sail artisan storage:link
-sail artisan route:clear
-```
-
----
-
-### 5. Compile Frontend Assets
-
-```bash
-sail npm run dev
-```
-
----
-
-# ⚡ Developer Quick-Start
-
-If you need to **reset the entire project and reseed the database**, run the following command:
-
-```bash
-# Full Reset & Seed (The "Fresh Start" Command)
-sail artisan migrate:fresh --seed && sail artisan storage:link && sail artisan route:clear
-```
-
-This command will:
-
-- Reset the database
-- Reseed all data
-- Re-link storage
-- Clear cached routes
-
----
-
-# 🌐 Application Routes
-
-| Service | URL |
-|------|------|
-| Public Portal | http://localhost |
-| Admin Dashboard | http://localhost/admin |
-
----
-
-# 📌 Development Notes
-
-The project emphasizes:
-
-- Clean component-based architecture
-- Reusable Vue components
-- Modern Laravel development practices
-- Government-style UI presentation
-- Maintainable modular design
+  * Glassmorphism-inspired design
+  * Fully responsive layout
+  * Built with Tailwind + daisyUI
 
 ---
 
 ## 🧠 Technical Challenges & Solutions
 
-### 1. Framework Integration Conflicts
+### 1. Environment Synchronization (Seeding)
 
-**The Problem:**  
-Conflict between **Preline UI** and **daisyUI** caused Vite compilation errors and layout shifts.
+**Problem:**
+Data inconsistencies between development environments after pulling from Git.
 
-**The Solution:**  
-Removed the Preline dependency and its JavaScript imports to allow **daisyUI (built on pure Tailwind)** to handle the component logic cleanly.
+**Solution:**
 
----
+* Standardized `SettingSeeder`
+* Enforced consistent workflow:
 
-### 2. Environment Synchronization (Docker)
+```bash
+php artisan db:seed
+```
 
-**The Problem:**  
-Running Laravel commands inside a **Dockerized environment (Sail)** versus the local host machine.
-
-**The Source of Confusion:**  
-Errors occurred when running `php artisan` directly instead of `./vendor/bin/sail artisan`.
-
-**The Solution:**  
-Established a consistent workflow using the **Sail wrapper** for all CLI operations to ensure the database and PHP versions matched the container environment.
+→ Ensures database state matches codebase across all machines
 
 ---
 
-### 3. Data Type Mismatch (Date Casting)
+### 2. UI Framework Conflict
 
-**The Problem:**  
-The `Call to a member function format() on string` error.
+**Problem:**
+Preline UI conflicted with daisyUI, causing build errors and styling issues.
 
-**The Technical Cause:**  
-Database timestamps are returned as **strings by default in Eloquent**.
+**Solution:**
 
-**The Solution:**  
-Implemented **Attribute Casting** in the `Post` model:
+* Removed Preline dependency
+* Standardized UI using Tailwind + daisyUI
+  → Improved stability and consistency
+
+---
+
+### 3. Eloquent Date Casting Issue
+
+**Problem:**
+
+```
+Call to a member function format() on string
+```
+
+**Solution:**
+Explicit casting in model:
 
 ```php
 protected $casts = [
-    'published_at' => 'datetime',
+    'created_at' => 'datetime',
 ];
+```
+
+→ Ensures proper handling of date objects
+
+---
+
+## 🛠️ Installation & Setup
+
+```bash
+# 1. Clone repository
+git clone https://github.com/rotanapheakdey/CMS.git
+cd CMS
+
+# 2. Start Docker environment
+./vendor/bin/sail up -d
+
+# 3. Install dependencies
+sail composer install
+sail npm install
+sail npm run dev
+
+# 4. Setup application
+sail artisan migrate --seed
+sail artisan storage:link
 ```
 
 ---
 
-# 🏛️ Architectural Decisions (March 2026)
+## 📌 Development Workflow
 
-- Decoupled **slugs** from the `posts` and `categories` tables to streamline the database schema.
-- Implemented `getRouteKeyName()` in Laravel Models to ensure seamless **Route Model Binding with UUIDs**.
-- Configured **Spatie Media Library fallbacks** to support both seeded dummy images and uploaded production media.
+To avoid environment inconsistencies:
+
+* Always run after pulling:
+
+```bash
+sail artisan db:seed
+```
+
+* Keep seeders updated when adding system configurations
+* Do not manually modify critical config records in database
 
 ---
 
-# 📄 License
+## 🎯 Project Value
 
-This project was created for **academic and demonstration purposes**.
+This project demonstrates:
+
+* Full-stack development with **Laravel + Vue (Inertia)**
+* Real-world **CMS architecture and design patterns**
+* Secure and scalable routing strategies
+* Clean UI/UX implementation using modern tools
+* Team collaboration with structured workflows
+
+---
+
+## 🏛️ Academic & Institutional Context
+
+Developed as part of an academic assignment aligned with **government-level system design standards**.
+
+The project emphasizes:
+
+* Clean architecture
+* Maintainable code practices
+* Real-world applicability in public sector systems
