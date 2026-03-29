@@ -18,8 +18,8 @@ Built with a focus on **performance, usability, and maintainability**, the syste
 ## 👥 Development Team
 
 * **Rotana Pheakdey (ភក្តី រតនា)** — Lead Developer / Backend Architect
-* **KEO Chournsocheat (កែវ ជួនសុជាតិ)** — Frontend / UI Designer
-* **Khom Socheat (ខុម សុជាត)** — QA / Documentation
+* **Khom Socheat (ខុម សុជាត)** — Frontend / UI Designer
+* **KEO Chournsocheat (កែវ ជួនសុជាតិ)** — QA / Documentation
 
 ---
 
