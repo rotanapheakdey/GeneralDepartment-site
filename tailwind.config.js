@@ -30,7 +30,25 @@ export default {
     ],
 
     daisyui: {
-        themes: ["corporate"], // Only Corporate Light
-        darkTheme: "corporate", // Forces Dark mode users to see Corporate Light
+        themes: [
+            {
+                gdib: {
+                    "primary": "#002B5B",     // Deep Official Blue
+                    "secondary": "#E00000",   // Strong Official Red
+                    "accent": "#FFD700",      // Government Gold
+                    "neutral": "#1e293b",     // Dark Slate for text
+                    "base-100": "#ffffff",    // Pure White Background
+                    "base-200": "#f8fafc",    // Light Grey for section backgrounds
+                    "base-300": "#f1f5f9",    // Slightly darker for borders
+                    "info": "#3b82f6",
+                    "success": "#16a34a",
+                    "warning": "#eab308",
+                    "error": "#dc2626",
+                },
+            },
+            "corporate", // Keep corporate as a backup
+        ],
+        // Force the new custom 'gdib' theme for everyone, even in dark mode
+        darkTheme: "gdib",
     },
 };

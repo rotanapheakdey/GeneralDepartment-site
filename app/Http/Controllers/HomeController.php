@@ -25,8 +25,8 @@ class HomeController extends Controller
                     'id' => $post->id,
                     'title' => $post->title,
                     'category' => $post->category ? $post->category->name : 'Uncategorized',
-                    // THIS MUST SAY 'image', NOT 'featured_image'
-                    'image' => $post->getFirstMediaUrl('featured_image') ?: $post->getFirstMediaUrl(),
+                    // THE FIX: Ask for the 'posts' collection
+                    'image' => $post->getFirstMediaUrl('posts'),
                 ]),
 
             // Fetch 5 latest documents

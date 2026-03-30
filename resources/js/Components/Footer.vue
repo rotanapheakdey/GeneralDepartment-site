@@ -1,4 +1,5 @@
 <script setup>
+// No reactive logic needed here currently
 </script>
 
 <template>

@@ -28,6 +28,11 @@ class SettingSeeder extends Seeder
                 'value_en' => 'Site Logo (Please upload an image)'
             ],
             [
+                'key' => 'site_hero_image',
+                'value_km' => 'រូបភាពផ្ទៃខាងក្រោយ (សូមបញ្ចូលរូបភាព)',
+                'value_en' => 'Hero Background Image (Please upload an image)'
+            ],
+            [
                 'key' => 'director_image',
                 'value_km' => 'រូបថតអគ្គនាយក (សូមបញ្ចូលរូបភាព)',
                 'value_en' => 'Director Image (Please upload an image)'

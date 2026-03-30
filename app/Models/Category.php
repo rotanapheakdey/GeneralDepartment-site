@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str; // Add this
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
     use HasUuids;
 
+    // ADD 'slug' HERE
     protected $fillable = ['name'];
 
-    // Auto-generate slug when creating a category
     protected static function boot()
     {
         parent::boot();

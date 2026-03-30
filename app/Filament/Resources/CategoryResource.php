@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
@@ -22,19 +20,27 @@ class CategoryResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-        Forms\Components\TextInput::make('name')
-            ->required()
-            ->live(onBlur: true)
-            ->afterStateUpdated(fn ($state, callable $set) => $set('slug', \Illuminate\Support\Str::slug($state))),
-        Forms\Components\TextInput::make('slug')->required(),
-    ]);
+            Forms\Components\TextInput::make('name')
+                ->required()
+                ->live(onBlur: true)
+                ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                // ADD THESE COLUMNS HERE
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
