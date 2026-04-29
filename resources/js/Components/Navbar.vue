@@ -3,7 +3,7 @@ import { Link, usePage } from "@inertiajs/vue3";
 import { useI18n } from "vue-i18n";
 import { ref, computed } from "vue";
 
-const { locale } = useI18n();
+const { locale } = useI18n({ useScope: 'global' });
 
 // Explicitly grab settings from Inertia page props
 const settings = computed(() => usePage().props.settings || {});

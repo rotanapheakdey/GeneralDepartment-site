@@ -3,47 +3,54 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DocumentResource\Pages;
-use App\Filament\Resources\DocumentResource\RelationManagers;
 use App\Models\Document;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DocumentResource extends Resource
 {
     protected static ?string $model = Document::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                // Title using translation key
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->label('ចំណងជើងឯកសារ (Title)'),
+                    ->label(__('portal.documents.title_column')),
 
+                // Document Type Select using translation keys
                 Forms\Components\Select::make('document_type')
                     ->options([
-                        'prakas' => 'ប្រកាស (Prakas)',
-                        'sub_decree' => 'អនុក្រឹត្យ (Sub-decree)',
-                        'notification' => 'សេចក្តីជូនដំណឹង (Notification)',
+                        'prakas' => __('portal.documents.types.prakas'),
+                        'sub_decree' => __('portal.documents.types.sub_decree'),
+                        'notification' => __('portal.documents.types.notification'),
+                        'directive' => __('portal.documents.types.directive'),
                     ])
-                    ->required(),
+                    ->required()
+                    ->label(__('portal.documents.type_column')),
 
                 Forms\Components\FileUpload::make('file_path')
                     ->label('ឯកសារ PDF')
-                    ->acceptedFileTypes(['application/pdf', 'application/x-pdf', 'application/acrobat', 'application/vnd.pdf', 'text/pdf', 'text/x-pdf'])
-                    ->directory('documents') // Saves to storage/app/public/documents
-                    ->preserveFilenames()
+                    ->acceptedFileTypes([
+                        'application/pdf',
+                        'application/x-pdf',
+                        'application/acrobat',
+                        'application/vnd.pdf',
+                        'text/pdf',
+                        'text/x-pdf'
+                    ])
+                    ->directory('documents')
                     ->required(),
 
                 Forms\Components\DatePicker::make('published_date')
+                    ->label(__('portal.documents.date_column'))
                     ->default(now()),
             ]);
     }
@@ -52,22 +59,33 @@ class DocumentResource extends Resource
     {
         return $table
             ->columns([
-                // This shows the title you typed
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('portal.documents.title_column'))
                     ->searchable()
                     ->sortable(),
 
-                // This shows the type (Prakas, Decree, etc.)
-                Tables\Columns\TextColumn::make('document_type') // Check this name!
+                // Document Type Badge with Automatic Translation
+                Tables\Columns\TextColumn::make('document_type')
                     ->badge()
-                    ->label('Type')
-                    ->color('primary'),
+                    ->label(__('portal.documents.type_column'))
+                    ->color('primary')
+                    // This line ensures 'prakas' becomes 'ប្រកាស' or 'Prakas'
+                    ->formatStateUsing(fn(string $state): string => __("portal.documents.types.{$state}")),
 
-                // This shows the date it was added
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->label('Uploaded At'),
+                    ->label(__('Uploaded At')),
+
+                // Audit Logs
+                Tables\Columns\TextColumn::make('creator.name')
+                    ->label('Uploaded By')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('updater.name')
+                    ->label('Last Modified By')
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -84,9 +102,7 @@ class DocumentResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

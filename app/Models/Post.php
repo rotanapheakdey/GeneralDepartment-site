@@ -21,8 +21,11 @@ class Post extends Model implements HasMedia
         'category_id',
         'featured_image',
         'status',
-        'published_at'
+        'published_at',
+        'created_by',      // Added for tracking
+        'last_updated_by'  // Added for tracking
     ];
+
     protected $casts = [
         'published_at' => 'datetime',
         'created_at' => 'datetime',
@@ -35,6 +38,37 @@ class Post extends Model implements HasMedia
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Relationship: Tracking who created the post.
+     */
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Relationship: Tracking who last updated the post.
+     */
+    public function updater(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_updated_by');
+    }
+
+    /**
+     * Automatic User Stamping
+     */
+    protected static function booted()
+    {
+        static::creating(function ($post) {
+            $post->created_by = auth()->id();
+            $post->last_updated_by = auth()->id();
+        });
+
+        static::updating(function ($post) {
+            $post->last_updated_by = auth()->id();
+        });
     }
 
     /**
@@ -53,6 +87,7 @@ class Post extends Model implements HasMedia
     {
         return $this->getFirstMediaUrl('featured_image');
     }
+
     public function getRouteKeyName(): string
     {
         return 'id';

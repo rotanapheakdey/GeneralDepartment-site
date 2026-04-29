@@ -54,7 +54,6 @@ class PostResource extends Resource
                     ->columnSpanFull()
                     ->label('ខ្លឹមសារអត្ថបទ (Content)'),
 
-
                 DateTimePicker::make('published_at')
                     ->label('Publication Date')
                     ->default(now()),
@@ -63,7 +62,6 @@ class PostResource extends Resource
                     ->collection('posts')
                     ->image()
                     ->imageEditor()
-         
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -73,12 +71,13 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                // ...existing code...
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('category.name')
                     ->badge(),
+
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
@@ -86,8 +85,19 @@ class PostResource extends Resource
                         'draft' => 'warning',
                         'archived' => 'danger',
                     }),
+
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
+                    ->sortable(),
+
+                // NEW: Tracking Columns successfully merged here!
+                Tables\Columns\TextColumn::make('creator.name')
+                    ->label('Created By')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('updater.name')
+                    ->label('Last Edited By')
                     ->sortable(),
             ])
             ->filters([
@@ -126,6 +136,7 @@ class PostResource extends Resource
     {
         return auth()->user()->hasAnyRole(['admin', 'editor']);
     }
+
     public static function canDeleteAny(): bool
     {
         // Maybe only the Admin can delete news to prevent accidents?

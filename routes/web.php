@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\PostController;
+use App\Models\Document;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -27,4 +28,21 @@ Route::get('/about', function () {
     return inertia('About/Index');
 })->name('about');
 
+Route::get('/documents/preview/{document}', function (App\Models\Document $document) {
+    $path = storage_path('app/public/' . $document->file_path);
+
+    if (!file_exists($path)) {
+        abort(404, 'File not found');
+    }
+
+    $file = file_get_contents($path);
+
+    return response($file, 200, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="document.pdf"',
+        'Cache-Control' => 'no-cache, no-store, must-revalidate',
+        'Pragma' => 'no-cache',
+        'Expires' => '0',
+    ]);
+})->name('documents.preview');
 require __DIR__.'/auth.php';
