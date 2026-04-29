@@ -142,10 +142,13 @@ const closePreview = () => {
                                 <!-- Title with PDF Badge -->
                                 <td class="py-5 pl-6">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-red-50 text-red-600 rounded-lg flex items-center justify-center font-bold text-xs">
+                                        <!-- ADDED: shrink-0 ensures the icon never gets squished by long text -->
+                                        <div class="shrink-0 w-10 h-10 bg-red-50 text-red-600 rounded-lg flex items-center justify-center font-bold text-xs">
                                             PDF
                                         </div>
-                                        <span class="font-semibold text-slate-800">{{ doc.title }}</span>
+                                        <span class="font-semibold text-slate-800">
+                                            {{ doc.title.trim() }}
+                                        </span>
                                     </div>
                                 </td>
                                 <!-- Document Type -->
