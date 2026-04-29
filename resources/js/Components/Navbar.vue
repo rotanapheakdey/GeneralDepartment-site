@@ -25,7 +25,7 @@ const isMobileMenuOpen = ref(false);
                         v-if="settings.site_logo?.image_url"
                         :src="settings.site_logo.image_url"
                         alt="Department Logo"
-                        class="h-20 w-auto object-contain p-1 rounded"
+                        class="h-20 w-auto object-contain p-1 rounded-full"
                     />
                     <div
                         v-else

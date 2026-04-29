@@ -49,10 +49,11 @@ watch(search, (value) => {
                 v-if="posts.length > 0"
                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-                <div
+                <Link
                     v-for="post in posts"
                     :key="post.id"
-                    class="card bg-white border border-slate-200 hover:shadow-lg transition"
+                    :href="route('posts.show', post.id)"
+                    class="card bg-white border border-slate-200 hover:shadow-lg transition group block"
                 >
                     <figure
                         class="h-48 w-full bg-slate-200 overflow-hidden relative"
@@ -103,14 +104,12 @@ watch(search, (value) => {
                             <span class="text-xs text-slate-400 font-medium">{{
                                 post.created_at
                             }}</span>
-                            <Link
-                                :href="route('posts.show', post.id)"
+                            <span
                                 class="btn btn-primary btn-sm btn-outline"
-                                >Read More</Link
-                            >
+                            >Read More</span>
                         </div>
                     </div>
-                </div>
+                </Link>
             </div>
 
             <div v-else class="py-20 text-center">

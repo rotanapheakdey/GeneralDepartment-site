@@ -26,7 +26,7 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                // 1. Cleaned up Title 
+                // 1. Cleaned up Title
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->label('ចំណងជើងអត្ថបទ (Title)'),
@@ -54,6 +54,7 @@ class PostResource extends Resource
                     ->columnSpanFull()
                     ->label('ខ្លឹមសារអត្ថបទ (Content)'),
 
+
                 DateTimePicker::make('published_at')
                     ->label('Publication Date')
                     ->default(now()),
@@ -62,6 +63,7 @@ class PostResource extends Resource
                     ->collection('posts')
                     ->image()
                     ->imageEditor()
+         
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -71,7 +73,7 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                // ...existing code...
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
@@ -89,14 +91,17 @@ class PostResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                // ...existing code...
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label('Delete Selected')
+                        ->requiresConfirmation()
+                        ->deselectRecordsAfterCompletion(),
                 ]),
             ]);
     }

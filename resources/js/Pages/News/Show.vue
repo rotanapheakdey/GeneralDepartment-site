@@ -48,7 +48,7 @@ defineProps({
                             </span>
                         </div>
 
-                        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-slate-900">
+                        <h1 class="text-3xl md:text-3xl font-extrabold leading-[1.7] text-slate-900 pb-6">
                             {{ post.title }}
                         </h1>
                     </div>

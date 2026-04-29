@@ -21,10 +21,14 @@ class PostController extends Controller
             })
             ->get()
             ->map(function ($post) {
+                // Remove figures (Trix image attachments) completely to hide filenames from the excerpt
+                $cleanContent = preg_replace('/<figure\b[^>]*>.*?<\/figure>/is', '', $post->content);
+                $cleanExcerpt = str(strip_tags($cleanContent))->limit(120);
+
                 return [
                     'id' => $post->id,
                     'title' => $post->title,
-                    'content_excerpt' => str($post->content)->limit(120),
+                    'content_excerpt' => (string) $cleanExcerpt,
                     'category' => $post->category ? $post->category->name : 'Uncategorized',
                     // This fetches the image from Spatie Media Library
                     'featured_image_url' => $post->getFirstMediaUrl('featured_image', 'thumb') ?: $post->getFirstMediaUrl('featured_image'),

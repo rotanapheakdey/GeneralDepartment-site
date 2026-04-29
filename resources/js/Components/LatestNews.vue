@@ -69,9 +69,10 @@ onUnmounted(() => stopAutoScroll());
             class="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing"
             style="scrollbar-width: none; -ms-overflow-style: none;"
         >
-            <div
+            <Link
                 v-for="post in posts"
                 :key="post.id"
+                :href="route('news.show', post.id)"
                 class="group flex flex-col bg-base-100 rounded-3xl transition-all duration-500 hover:-translate-y-2 shrink-0 w-[300px] md:w-[350px] snap-start border border-base-200 shadow-sm hover:shadow-xl"
             >
                 <div class="relative h-56 w-full overflow-hidden rounded-t-3xl bg-base-200">
@@ -107,16 +108,15 @@ onUnmounted(() => stopAutoScroll());
                     </div>
 
                     <div class="flex items-center mt-auto">
-                        <Link
-                            :href="route('news.show', post.id)"
+                        <span
                             class="text-sm font-bold text-secondary flex items-center gap-1 group/link"
                         >
                             Read Article
                             <span class="transition-transform group-hover/link:translate-x-1">→</span>
-                        </Link>
+                        </span>
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
     </section>
 </template>

@@ -38,7 +38,7 @@ class DocumentResource extends Resource
 
                 Forms\Components\FileUpload::make('file_path')
                     ->label('ឯកសារ PDF')
-                    ->acceptedFileTypes(['application/pdf'])
+                    ->acceptedFileTypes(['application/pdf', 'application/x-pdf', 'application/acrobat', 'application/vnd.pdf', 'text/pdf', 'text/x-pdf'])
                     ->directory('documents') // Saves to storage/app/public/documents
                     ->preserveFilenames()
                     ->required(),

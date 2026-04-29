@@ -42,7 +42,9 @@ class Post extends Model implements HasMedia
      */
     public function getExcerptAttribute(): string
     {
-        return str($this->content)->stripTags()->limit(150);
+        // First remove all <figure> tags (Trix attachments) so their text doesn't leak into the excerpt
+        $cleanContent = preg_replace('/<figure\b[^>]*>.*?<\/figure>/is', '', $this->content);
+        return str($cleanContent)->stripTags()->limit(150);
     }
 
     protected $appends = ['featured_image_url'];

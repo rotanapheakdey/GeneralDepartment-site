@@ -29,7 +29,7 @@ const { locale } = useI18n();
                         v-if="settings.director_image?.image_url"
                         :src="settings.director_image.image_url"
                         :alt="settings.director_name?.text"
-                        class="relative z-10 aspect-[3/4] w-full object-cover rounded-2xl shadow-2xl border-2 border-white/20"
+                        class="relative z-10 aspect-[3/4] w-full object-cover  "
                     />
                     <div
                         v-else

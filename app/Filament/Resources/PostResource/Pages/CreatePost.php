@@ -9,4 +9,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePost extends CreateRecord
 {
     protected static string $resource = PostResource::class;
+
+    // After creating a post, redirect back to a blank create form
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('create');
+    }
 }

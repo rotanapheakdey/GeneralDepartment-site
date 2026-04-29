@@ -17,9 +17,29 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\HtmlString;
 
 class AdminPanelProvider extends PanelProvider
 {
+    // ADD THIS BOOT METHOD HERE
+    public function boot(): void
+    {
+        // This hides the filename and file size caption inside the RichEditor
+        FilamentView::registerRenderHook(
+            'panels::head.end',
+            fn (): HtmlString => new HtmlString('
+                <style>
+                    /* Hide filename and size in the RichEditor (Trix) */
+                    figcaption.attachment__caption,
+                    .trix-editor .attachment__caption {
+                        display: none !important;
+                    }
+                </style>
+            ')
+        );
+    }
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -54,6 +74,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->widgets([
+                \App\Filament\Widgets\StatsOverviewWidget::class,
+                Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
             ]);
     }
 }

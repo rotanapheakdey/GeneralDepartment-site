@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&display=swap');
 
 body {
     font-family: 'Kantumruy Pro', sans-serif;
+}
+.filepond--file-info {
+    display: none !important;
+}
+
+/* Hide filename and size inside Trix/RichEditor content on the frontend */
+figcaption.attachment__caption {
+    display: none !important;
 }

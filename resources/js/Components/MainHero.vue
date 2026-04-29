@@ -34,7 +34,7 @@ const { locale } = useI18n();
                 </span>
             </div>
 
-            <h1 class="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-tight mb-4 drop-shadow-2xl">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-2xl">
                 {{ settings.dept_name?.[locale] || 'អគ្គនាយកដ្ឋានព័ត៌មាន និងសោតទស្សន៍' }}
             </h1>
 

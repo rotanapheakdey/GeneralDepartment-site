@@ -14,12 +14,12 @@ defineProps({
         <article class="bg-white min-h-screen">
             <div class="bg-slate-900 text-white py-16">
                 <div class="max-w-4xl mx-auto px-4">
-                    <Link href="/posts" class="text-blue-400 text-sm hover:underline mb-6 inline-block">← Back to News</Link>
-                    <div class="flex items-center gap-2 mb-4">
+                    <Link href="/posts" class="text-blue-400 text-sm hover:underline mb-8 inline-block">← Back to News</Link>
+                    <div class="flex items-center gap-2 mb-6">
                         <span class="badge badge-primary">{{ post.category }}</span>
                         <span class="text-slate-400 text-sm">{{ post.created_at }}</span>
                     </div>
-                    <h1 class="text-3xl md:text-5xl font-bold leading-tight">{{ post.title }}</h1>
+                    <h1 class="text-3xl md:text-5xl font-bold leading-snug mt-6 mb-12">{{ post.title }}</h1>
                 </div>
             </div>
 
