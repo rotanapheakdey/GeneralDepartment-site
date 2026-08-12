@@ -49,7 +49,7 @@ onUnmounted(() => stopAutoScroll());
                     <span class="w-2 h-8 bg-secondary rounded-full"></span> {{ $t("welcome.latest_news") }}
                 </h3>
                 <p class="text-slate-500 mt-2">
-                    Stay updated with our latest activities and announcements
+                    {{ $t('news.latest_announcements') }}
                 </p>
             </div>
             <Link
@@ -111,7 +111,7 @@ onUnmounted(() => stopAutoScroll());
                         <span
                             class="text-sm font-bold text-secondary flex items-center gap-1 group/link"
                         >
-                            Read Article
+                            {{ $t('news.read_article') }}
                             <span class="transition-transform group-hover/link:translate-x-1">→</span>
                         </span>
                     </div>

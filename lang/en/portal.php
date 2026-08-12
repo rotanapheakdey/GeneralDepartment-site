@@ -6,13 +6,13 @@ return [
         "news" => "News",
         "documents" => "Documents & Prakas",
         "services" => "Services",
-        "about" => "About Us",
-        "dept_name" => "Information and Broadcasting"
+        "about" => "Contact",
+        "dept_name" => "Ministry of Information"
     ],
     "welcome" => [
-        "director_name" => "Rotana Pheakdey",
-        "director_title" => "Head of Digital Content",
-        "quote" => "«Our mission at the Department of Information and Broadcasting is to ensure that every citizen receives accurate, timely, and secure digital information.»",
+        "director_name" => "Neth Pheaktra",
+        "director_title" => "Minister",
+        "quote" => "«Our mission at the Ministry of Information is to ensure that every citizen receives accurate, timely, and secure digital information.»",
         "latest_news" => "Latest News",
         "recent_docs" => "Recent Documents",
         "view_all" => "View All"

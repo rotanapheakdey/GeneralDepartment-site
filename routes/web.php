@@ -28,6 +28,13 @@ Route::get('/about', function () {
     return inertia('About/Index');
 })->name('about');
 
+use App\Http\Controllers\PageController;
+
+Route::get('/about-us', [PageController::class, 'show'])->defaults('slug', 'about-us')->name('about_us.index');
+Route::get('/about-us/structure', [PageController::class, 'show'])->defaults('slug', 'structure')->name('about_us.structure');
+Route::get('/about-us/units', [PageController::class, 'show'])->defaults('slug', 'units')->name('about_us.units');
+Route::get('/about-us/leadership', [PageController::class, 'show'])->defaults('slug', 'leadership')->name('about_us.leadership');
+
 Route::get('/documents/preview/{document}', function (App\Models\Document $document) {
     $path = storage_path('app/public/' . $document->file_path);
 

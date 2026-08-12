@@ -3,7 +3,7 @@ import GovLayout from "@/Layouts/GovLayout.vue";
 import { Head, router } from "@inertiajs/vue3";
 import { ref, watch, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
-import Pagination from "@/Components/Pagination.vue";
+import Pagination from "@/Components/UI/Pagination.vue";
 
 const { locale, t } = useI18n({ useScope: "global" });
 
@@ -173,7 +173,7 @@ const closePreview = () => {
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
-                                            Preview
+                                            {{ t('news.preview') || 'Preview' }}
                                         </button>
 
                                         <a
@@ -198,7 +198,7 @@ const closePreview = () => {
                     <!-- Empty State -->
                     <div v-if="documents.data.length === 0" class="p-20 text-center border-t border-slate-100">
                         <p class="text-slate-400">
-                            No documents found matching your search.
+                            {{ t('news.no_results') || 'No documents found matching your search.' }}
                         </p>
                     </div>
                 </div>

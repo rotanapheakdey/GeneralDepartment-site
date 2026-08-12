@@ -4,16 +4,33 @@
         "news": "News",
         "documents": "Documents & Prakas",
         "services": "Services",
-        "about": "About Us",
-        "dept_name": "Information and Broadcasting"
+        "about": "Contact",
+        "about_us": "About Us",
+        "dept_name": "Ministry of Information"
     },
     "welcome": {
         "director_name": "Rotana Pheakdey",
         "director_title": "Head of Digital Content",
-        "quote": "«Our mission at the Department of Information and Broadcasting is to ensure that every citizen receives accurate, timely, and secure digital information.»",
+        "quote": "«Our mission at the Ministry of Information is to ensure that every citizen receives accurate, timely, and secure digital information.»",
         "latest_news": "Latest News",
         "recent_docs": "Recent Documents",
         "view_all": "View All"
+    },
+    "news": {
+        "recent_activities": "Recent Activities",
+        "latest_announcements": "Latest news and announcements from the Ministry of Information.",
+        "read_article": "Read Article",
+        "back_to_news": "Back to News"
+    },
+    "footer": {
+        "resources": "Resources",
+        "privacy_policy": "Privacy Policy",
+        "terms_of_service": "Terms of Service",
+        "media_kit": "Media Kit",
+        "system_engineer": "System Engineer",
+        "designed_by": "Designed and Maintained by",
+        "rights": "All rights reserved.",
+        "academic": "Academic Assignment Project"
     },
     "documents": {
         "title_column": "Document Title",

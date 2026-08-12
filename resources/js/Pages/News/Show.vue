@@ -1,7 +1,7 @@
 <script setup>
 import GovLayout from "@/Layouts/GovLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
-import Breadcrumb from "@/Components/Breadcrumb.vue";
+import Breadcrumb from "@/Components/UI/Breadcrumb.vue";
 
 defineProps({
     post: Object,
@@ -66,7 +66,7 @@ defineProps({
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                             </svg>
-                            Back to all activities
+                            {{ $t('news.back_to_news') }}
                         </Link>
                     </div>
                 </article>
@@ -79,7 +79,7 @@ defineProps({
                         <div>
                             <div class="flex items-center gap-2 mb-6 border-b border-slate-200 pb-3">
                                 <div class="w-2 h-6 bg-[#D4AF37] rounded-full"></div>
-                                <h3 class="text-2xl font-black text-slate-900">Latest Updates</h3>
+                                <h3 class="text-2xl font-black text-slate-900">{{ $t('welcome.latest_news') }}</h3>
                             </div>
 
                             <div class="space-y-6">

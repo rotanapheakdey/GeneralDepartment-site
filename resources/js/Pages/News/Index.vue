@@ -5,10 +5,10 @@
         <div class="max-w-7xl mx-auto px-4 py-12 bg-base-100 text-base-content">
             <div class="mb-12 border-b-2 border-base-300 pb-6">
                 <h1 class="text-4xl font-extrabold text-base-content uppercase tracking-tight">
-                    Recent Activities
+                    {{ $t('news.recent_activities') }}
                 </h1>
                 <p class="text-base-content opacity-70 mt-2">
-                    Latest news and announcements from the General Department of Information and Broadcasting.
+                    {{ $t('news.latest_announcements') }}
                 </p>
             </div>
 
@@ -44,7 +44,7 @@
                                 :href="route('news.show', { post: post.id })"
                                 class="btn btn-primary w-full text-white"
                             >
-                                View Details
+                                {{ $t('news.read_article') }}
                             </Link>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
 <script setup>
 import GovLayout from "@/Layouts/GovLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
-import Pagination from "@/Components/Pagination.vue";
+import Pagination from "@/Components/UI/Pagination.vue";
 defineProps({
     posts: Object,
 });

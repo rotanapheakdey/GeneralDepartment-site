@@ -118,7 +118,7 @@ const selectedDoc = ref(null);
 
             <div class="flex justify-center mt-6">
                 <a :href="route('documents.index')" class="btn btn-outline border-slate-300 text-slate-600 hover:bg-slate-100 hover:border-slate-400 rounded-xl px-8">
-                    View All Documents
+                    {{ $t('welcome.view_all') }}
                 </a>
             </div>
 

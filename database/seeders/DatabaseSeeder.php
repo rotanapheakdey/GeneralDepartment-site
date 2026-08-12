@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
 
         // 3. Create the Editor User
         $editor = User::updateOrCreate(
-            ['email' => 'editor@gdib.gov.kh'],
+            ['email' => 'editor@information.gov.kh'],
             [
-                'name' => 'GDIB Editor',
+                'name' => 'MoI Editor',
                 'password' => bcrypt('password123'),
                 'email_verified_at' => now(),
             ]
@@ -49,16 +49,16 @@ class DatabaseSeeder extends Seeder
         // This uses the Factory to create varied content for your news cards
         if (class_exists(Post::class)) {
             Post::factory(12)->create();
-            $this->command->info('GDIB System: 12 News Posts created.');
+            $this->command->info('MoI System: 12 News Posts created.');
         }
 
         // 5. Generate 10 Official Documents
         // This populates your Prakas/Sub-decree table
         if (class_exists(Document::class)) {
             Document::factory(10)->create();
-            $this->command->info('GDIB System: 10 Official Documents created.');
+            $this->command->info('MoI System: 10 Official Documents created.');
         }
 
-        $this->command->info('GDIB System: Admin, Editor, and Dummy Content seeded successfully!');
+        $this->command->info('MoI System: Admin, Editor, and Dummy Content seeded successfully!');
     }
 }

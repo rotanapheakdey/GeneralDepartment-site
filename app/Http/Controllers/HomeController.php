@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Document;
+use App\Models\Banner;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,9 @@ class HomeController extends Controller
     public function index()
     {
         return \Inertia\Inertia::render('Department/Welcome', [
+            'banners' => \App\Models\Banner::where('is_active', true)
+                ->orderBy('order', 'asc')
+                ->get(),
             // Removed the 'status' filter so it actually finds your posts
             'latestPosts' => \App\Models\Post::with(['category', 'media'])
                 ->latest()

@@ -4,19 +4,20 @@ import { Head, usePage } from "@inertiajs/vue3";
 
 const page = usePage();
 const settings = page.props.settings || {};
+const locale = computed(() => page.props.locale || 'en');
 </script>
 
 <template>
     <GovLayout>
-        <Head :title="$t('nav.about') + ' - GDIB'" />
+        <Head :title="$t('nav.about') + ' - MoI'" />
 
         <section class="bg-[#002B5B] py-20 border-b-8 border-[#D4AF37]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 class="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
-                    About the General Department
+                    {{ settings.about_title?.[locale] || 'About the Ministry' }}
                 </h1>
                 <p class="text-xl text-slate-300 max-w-3xl mx-auto font-serif italic">
-                    Regulating, managing, and guiding the information and broadcasting sector in the Kingdom of Cambodia.
+                    {{ settings.about_description?.[locale] || 'Regulating, managing, and guiding the information and broadcasting sector in the Kingdom of Cambodia.' }}
                 </p>
             </div>
         </section>
@@ -30,9 +31,9 @@ const settings = page.props.settings || {};
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Our Mission</h2>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">{{ settings.mission_title?.[locale] || 'Our Mission' }}</h2>
                         <p class="text-slate-600 leading-relaxed">
-                            To ensure the flow of accurate, timely, and comprehensive information to the public while maintaining the integrity and quality of broadcasting services nationwide. We act as the bridge between the government and the citizens.
+                            {{ settings.mission_text?.[locale] || 'To ensure the flow of accurate, timely, and comprehensive information to the public while maintaining the integrity and quality of broadcasting services nationwide. We act as the bridge between the government and the citizens.' }}
                         </p>
                     </div>
 
@@ -43,9 +44,9 @@ const settings = page.props.settings || {};
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-4">Our Vision</h2>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-4">{{ settings.vision_title?.[locale] || 'Our Vision' }}</h2>
                         <p class="text-slate-600 leading-relaxed">
-                            To be the leading digitalized public institution in Southeast Asia, fostering a transparent, modern, and highly ethical media landscape that empowers every Cambodian citizen.
+                            {{ settings.vision_text?.[locale] || 'To be the leading digitalized public institution in Southeast Asia, fostering a transparent, modern, and highly ethical media landscape that empowers every Cambodian citizen.' }}
                         </p>
                     </div>
                 </div>
@@ -55,13 +56,13 @@ const settings = page.props.settings || {};
         <section class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-12">
-                    <h3 class="text-3xl font-black text-slate-900">Location & Contact</h3>
+                    <h3 class="text-3xl font-black text-slate-900">{{ settings.contact_title?.[locale] || 'Location & Contact' }}</h3>
                     <div class="h-1 w-20 bg-[#D4AF37] mt-4 rounded-full"></div>
                 </div>
 
                 <div class="bg-slate-50 rounded-[2rem] border border-slate-200 overflow-hidden flex flex-col lg:flex-row shadow-lg">
                     <div class="lg:w-1/3 p-8 md:p-12 bg-[#002B5B] text-white flex flex-col justify-center">
-                        <h4 class="text-2xl font-bold mb-8 text-[#D4AF37]">Get in Touch</h4>
+                        <h4 class="text-2xl font-bold mb-8 text-[#D4AF37]">{{ settings.contact_get_in_touch?.[locale] || 'Get in Touch' }}</h4>
 
                         <div class="space-y-6">
                             <div class="flex items-start gap-4">
@@ -70,8 +71,8 @@ const settings = page.props.settings || {};
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                                 <div>
-                                    <p class="font-bold">Ministry of Information</p>
-                                    <p class="text-slate-300 text-sm mt-1">Monivong Blvd, Sangkat Srah Chork, Daun Penh, Phnom Penh, Cambodia</p>
+                                    <p class="font-bold">{{ settings.dept_name?.[locale] || 'Ministry of Information' }}</p>
+                                    <p class="text-slate-300 text-sm mt-1">{{ settings.address?.[locale] || 'Monivong Blvd, Sangkat Srah Chork, Daun Penh, Phnom Penh, Cambodia' }}</p>
                                 </div>
                             </div>
 
