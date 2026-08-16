@@ -17,7 +17,9 @@ class SettingResource extends Resource
     protected static ?string $model = Setting::class;
 
     // Optional: Changed icon to look more like 'Settings'
-    protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';
+    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static ?string $navigationIconColor = 'warning';
+    protected static ?string $navigationGroup = 'System Settings';
     public static function canCreate(): bool
     {
         return false;

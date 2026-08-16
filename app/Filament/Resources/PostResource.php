@@ -20,7 +20,9 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIconColor = 'success';
+    protected static ?string $navigationGroup = 'Content Management';
 
     public static function form(Form $form): Form
     {
@@ -104,6 +106,14 @@ class PostResource extends Resource
                 // ...existing code...
             ])
             ->actions([
+                
+                Tables\Actions\Action::make('preview')
+                    ->icon('heroicon-o-eye')
+                    ->color('secondary')
+                    ->modalHeading('Post Preview')
+                    ->modalContent(fn ($record) => view('filament.pages.post-preview', ['data' => $record->toArray()]))
+                    ->modalSubmitAction(false)
+                    ->modalCancelAction(false),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

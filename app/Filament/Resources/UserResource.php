@@ -17,6 +17,8 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIconColor = 'info';
+    protected static ?string $navigationGroup = 'Access Control';
 
     // Only Admin can see this menu
     public static function canViewAny(): bool

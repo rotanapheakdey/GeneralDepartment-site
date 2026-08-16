@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+/* Premium Overrides */
+
+/* Softer shadows and rounded corners on cards and panels */
+.fi-ta-header,
+.fi-ta-content,
+.fi-fo-wizard,
+.fi-modal-window,
+.fi-wi-stats-overview-stat {
+    @apply shadow-soft rounded-2xl border-0 !important;
+}
+
+/* Glassmorphism Topbar */
+.fi-topbar {
+    @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border-b-0 shadow-sm !important;
+}
+
+/* Rounded inputs */
+.fi-input-wrp {
+    @apply rounded-xl !important;
+}
+
+/* Smooth button transitions */
+.fi-btn {
+    @apply rounded-xl transition-all duration-300 hover:shadow-soft-lg hover:-translate-y-0.5 !important;
+}
+
+/* Softer borders for tables */
+.fi-ta-record {
+    @apply border-gray-100 dark:border-gray-800 transition-colors duration-200 hover:bg-gray-50/50 dark:hover:bg-gray-800/50 !important;
+}
+
+/* 
+ * ----------------------------------------------------
+ * Glass Tile Icons for Sidebar (Industry Standard)
+ * ----------------------------------------------------
+ */
+.fi-sidebar-item-icon {
+    @apply p-1.5 rounded-lg shadow-sm transition-all duration-300 !important;
+}
+
+/* Active State Icon Tiles */
+.fi-sidebar-item-active .fi-sidebar-item-icon {
+    @apply scale-110 shadow-md !important;
+}
+
+/* Apply specific tinted backgrounds based on icon color using CSS variables provided by Filament */
+.fi-sidebar-item-icon {
+    background-color: rgba(var(--c-500), 0.1) !important;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-icon,
+.fi-sidebar-item:hover .fi-sidebar-item-icon {
+    background-color: rgba(var(--c-500), 0.15) !important;
+}

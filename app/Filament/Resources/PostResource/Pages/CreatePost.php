@@ -15,4 +15,20 @@ class CreatePost extends CreateRecord
     {
         return $this->getResource()::getUrl('create');
     }
+
+    protected function getFormActions(): array
+    {
+        return array_merge(parent::getFormActions(), [
+            \Filament\Actions\Action::make('preview')
+                ->label('Preview Post')
+                ->color('secondary')
+                ->icon('heroicon-m-eye')
+                ->action(function () {})
+                ->modalHeading('Post Preview')
+                ->modalContent(fn () => view('filament.pages.post-preview', ['data' => $this->form->getState()]))
+                ->modalSubmitAction(false)
+                ->modalCancelAction(false)
+        ]);
+    }
+
 }

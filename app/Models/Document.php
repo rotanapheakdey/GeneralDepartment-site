@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
+
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Document extends Model
 {
+    use LogsActivity;
+
     use HasUuids, HasFactory;
 
     protected $fillable = [
@@ -50,5 +56,13 @@ class Document extends Model
     {
         static::creating(fn($doc) => $doc->created_by = $doc->last_updated_by = auth()->id());
         static::updating(fn($doc) => $doc->last_updated_by = auth()->id());
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty()
+            ->dontLogEmptyChanges();
     }
 }
