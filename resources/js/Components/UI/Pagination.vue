@@ -4,8 +4,8 @@
             <Link
                 v-if="link.url"
                 :href="link.url"
-                class="btn btn-sm text-white"
-                :class="link.active ? 'btn-primary' : 'btn-outline border-base-300' "
+                class="btn btn-sm"
+                :class="link.active ? 'btn-primary text-white' : 'btn-outline border-base-300 text-base-content' "
                 v-html="link.label"
             ></Link>
             <span

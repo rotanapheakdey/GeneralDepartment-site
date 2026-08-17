@@ -1,6 +1,7 @@
 <script setup>
 import GovLayout from "@/Layouts/GovLayout.vue";
 import { Head, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
 
 const page = usePage();
 const settings = page.props.settings || {};
@@ -11,7 +12,7 @@ const locale = computed(() => page.props.locale || 'en');
     <GovLayout>
         <Head :title="$t('nav.about') + ' - MoI'" />
 
-        <section class="bg-[#002B5B] py-20 border-b-8 border-[#D4AF37]">
+        <section class="bg-[moi-navy] py-20 border-b-8 border-[moi-blue-hover]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 class="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
                     {{ settings.about_title?.[locale] || 'About the Ministry' }}
@@ -26,7 +27,7 @@ const locale = computed(() => page.props.locale || 'en');
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 gap-8 -mt-28">
                     <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl shadow-slate-200/50 border border-slate-100">
-                        <div class="w-14 h-14 bg-blue-100 text-[#002B5B] rounded-2xl flex items-center justify-center mb-6">
+                        <div class="w-14 h-14 bg-blue-100 text-[moi-navy] rounded-2xl flex items-center justify-center mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
@@ -57,12 +58,12 @@ const locale = computed(() => page.props.locale || 'en');
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-12">
                     <h3 class="text-3xl font-black text-slate-900">{{ settings.contact_title?.[locale] || 'Location & Contact' }}</h3>
-                    <div class="h-1 w-20 bg-[#D4AF37] mt-4 rounded-full"></div>
+                    <div class="h-1 w-20 bg-[moi-blue-hover] mt-4 rounded-full"></div>
                 </div>
 
                 <div class="bg-slate-50 rounded-[2rem] border border-slate-200 overflow-hidden flex flex-col lg:flex-row shadow-lg">
-                    <div class="lg:w-1/3 p-8 md:p-12 bg-[#002B5B] text-white flex flex-col justify-center">
-                        <h4 class="text-2xl font-bold mb-8 text-[#D4AF37]">{{ settings.contact_get_in_touch?.[locale] || 'Get in Touch' }}</h4>
+                    <div class="lg:w-1/3 p-8 md:p-12 bg-[moi-navy] text-white flex flex-col justify-center">
+                        <h4 class="text-2xl font-bold mb-8 text-[moi-blue-hover]">{{ settings.contact_get_in_touch?.[locale] || 'Get in Touch' }}</h4>
 
                         <div class="space-y-6">
                             <div class="flex items-start gap-4">

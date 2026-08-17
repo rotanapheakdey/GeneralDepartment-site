@@ -72,26 +72,21 @@ onUnmounted(() => stopAutoScroll());
             <Link
                 v-for="post in posts"
                 :key="post.id"
-                :href="route('news.show', post.id)"
+                :href="route('news.show', post.slug)"
                 class="group flex flex-col bg-base-100 rounded-3xl transition-all duration-500 hover:-translate-y-2 shrink-0 w-[300px] md:w-[350px] snap-start border border-base-200 shadow-sm hover:shadow-xl"
             >
-                <div class="relative h-56 w-full overflow-hidden rounded-t-3xl bg-base-200">
+                <div class="relative h-56 w-full overflow-hidden rounded-t-3xl bg-slate-200 animate-pulse">
                     <img
-                        v-if="post.image"
-                        :src="post.image"
-                        @error="(e) => e.target.src = 'https://placehold.co/600x400/002B5B/FFFFFF?text=News+Update'"
-                        class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        :src="post.image ? post.image : 'https://placehold.co/600x400/002B5B/FFFFFF?text=News+Update'"
+                        @load="$event.target.classList.remove('opacity-0'); $event.target.parentElement.classList.remove('animate-pulse')"
+                        class="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:scale-110"
                         alt="News Image"
                     />
-                    <img
-                        v-else
-                        src="https://placehold.co/600x400/002B5B/FFFFFF?text=News+Update"
-                        class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Placeholder Image"
-                    />
 
-                    <div class="absolute top-4 left-4">
-                        <span class="bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-primary shadow-sm border border-white/20">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-white/80 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-primary shadow-sm border border-white/40">
                             {{ post.category }}
                         </span>
                     </div>

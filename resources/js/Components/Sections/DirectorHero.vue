@@ -15,7 +15,7 @@ const { locale } = useI18n();
     <section class="py-16 bg-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-[2rem] shadow-2xl shadow-slate-200/50 overflow-hidden flex flex-col md:flex-row border border-white">
-                <div class="md:w-1/3 bg-[#002B5B] relative flex items-center justify-center p-8">
+                <div class="md:w-1/3 bg-[moi-navy] relative flex items-center justify-center p-8">
                     <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                         <svg width="100%" height="100%">
                             <pattern id="pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -53,7 +53,7 @@ const { locale } = useI18n();
                     <p class="text-xl text-slate-600 leading-relaxed mb-8 font-serif italic">
                         "{{ settings.director_quote?.[locale] }}"
                     </p>
-                    <div class="h-1 w-20 bg-[#D4AF37] rounded-full"></div>
+                    <div class="h-1 w-20 bg-[moi-blue-hover] rounded-full"></div>
                 </div>
             </div>
         </div>

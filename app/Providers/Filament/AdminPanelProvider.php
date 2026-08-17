@@ -50,17 +50,20 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('3rem')
             ->favicon(asset('favicon.png'))
             ->login()
+            ->spa()
+            ->unsavedChangesAlerts()
             ->sidebarCollapsibleOnDesktop()
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->colors([
-                'primary' => Color::hex('#19439B'), // Ministry Blue
-                'danger' => Color::hex('#E41A2B'), // Ministry Red
-                'white' => Color::hex('#171717'), // Requested custom "white"
-                'gray' => Color::hex('#171717'), // Use #171717 as the base gray palette
+                'primary' => Color::hex('#0B3C95'), // MoINFO Royal Blue
+                'danger' => Color::hex('#D91A2A'), // MoINFO Red
+                'white' => Color::Slate, // Using slate brings back depth and subtle shadows in dark mode!
+                'gray' => Color::Slate, 
                 'info' => Color::Sky,
                 'success' => Color::Emerald,
                 'warning' => Color::Amber,
             ])
-            ->font('Plus Jakarta Sans')
+            ->font('Kantumruy Pro')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

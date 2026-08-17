@@ -5,6 +5,7 @@ import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createApp, h } from "vue";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 import { createI18n } from "vue-i18n";
+import revealDirective from "./Directives/reveal";
 
 // Import language files
 import en from "./lang/en.json";
@@ -27,10 +28,13 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
-            .use(i18n) // Mounted here correctly
+            .use(i18n)
+            .directive('reveal', revealDirective)
             .mount(el);
     },
     progress: {
-        color: "#002B5B",
+        // We handle colors and thickness via custom CSS in app.css
+        color: false,
+        showSpinner: true,
     },
 });

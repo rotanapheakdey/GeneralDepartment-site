@@ -31,12 +31,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'title',
-        'slug',
-        'content',
-        'status',       // Make sure this is here
-        'category_id',  // Make sure this is here
-        'published_at',
     ];
 
     /**

@@ -29,7 +29,7 @@ defineProps({
                 </div>
 
                 <div
-                    class="prose prose-lg max-w-none prose-slate prose-headings:text-[#002B5B] pb-20"
+                    class="prose prose-lg max-w-none prose-slate prose-headings:text-[moi-navy] pb-20"
                     v-html="post.content"
                 ></div>
             </div>

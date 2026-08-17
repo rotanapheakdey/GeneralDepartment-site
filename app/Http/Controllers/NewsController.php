@@ -3,77 +3,133 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class NewsController extends Controller
 {
     /**
-     * Display the list of published news with categories and media.
+     * Display the list of published news with categories, search, and filter.
+     * N+1 FIX: eager-load media so featured_image_url accessor avoids extra queries.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $posts = Post::with('category')
-            ->where('status', 'published')
-            ->latest('published_at')
+        $categories = Category::orderBy('name')->get(['id', 'name', 'slug']);
+
+        $posts = Post::with(['category', 'media'])
+            ->published()
+            ->when($request->search, fn ($q, $s) =>
+                $q->where('title', 'like', "%{$s}%")
+            )
+            ->when($request->category, fn ($q, $cat) =>
+                $q->whereHas('category', fn ($cq) => $cq->where('slug', $cat))
+            )
+            ->when($request->sort === 'views', fn ($q) =>
+                $q->orderByDesc('views_count')
+            , fn ($q) =>
+                $q->latest('published_at')
+            )
             ->paginate(9)
-            ->through(function ($post) {
-                return [
-                    'id' => $post->id, // Ensure this is exactly 'id'
-                    'title' => $post->title,
-                    'excerpt' => $post->excerpt,
-                    'category' => $post->category,
-                    // Fallback for image: if Spatie media is empty, use the dummy URL from featured_image
-                    'image' => $post->getFirstMediaUrl('posts') ?: $post->featured_image,
-                    'created_at' => $post->published_at,
-                ];
-            });
+            ->withQueryString()
+            ->through(fn ($post) => [
+                'id'         => $post->id,
+                'slug'       => $post->slug,
+                'title'      => $post->title,
+                'excerpt'    => $post->excerpt,
+                'category'   => $post->category ? ['name' => $post->category->name, 'slug' => $post->category->slug] : null,
+                'image'      => $post->featured_image_url,
+                'read_time'  => $post->read_time,
+                'is_breaking'=> $post->is_breaking,
+                'is_featured'=> $post->is_featured,
+                'created_at' => $post->published_at
+                    ? Carbon::parse($post->published_at)->format('M d, Y')
+                    : Carbon::parse($post->created_at)->format('M d, Y'),
+            ]);
 
         return Inertia::render('News/Index', [
-            'posts' => $posts
+            'posts'      => $posts,
+            'categories' => $categories,
+            'filters'    => $request->only(['search', 'category', 'sort']),
         ]);
     }
 
     /**
-     * Display a single news post.
+     * Display a single news post by slug.
+     * N+1 FIX: use ->with() for all relationships up front.
      */
     public function show(Post $post): Response
     {
-        // Load the category relationship if not already loaded
-        $post->load('category');
+        // Load all needed relationships in one batch
+        $post->load(['category', 'media', 'creator']);
 
-        // --- THE NEW SIDEBAR LOGIC ---
-        // Fetch 4 recent published posts, excluding the one currently being viewed
-        $recentPosts = Post::with('category')
-            ->where('status', 'published')
-            ->where('id', '!=', $post->id) // Don't show the current article in the sidebar
+        // Increment view counter asynchronously-style
+        $post->incrementViews();
+
+        // Recent posts — eager-load media to fix N+1 in sidebar
+        $recentPosts = Post::with(['category', 'media'])
+            ->published()
+            ->where('id', '!=', $post->id)
             ->latest('published_at')
-            ->take(4)
+            ->take(5)
             ->get()
-            ->map(fn($p) => [
-                'id' => $p->id,
-                'title' => $p->title,
-                'category' => $p->category?->name ?? 'General News',
-                // Consistent fallback logic
-                'image' => $p->getFirstMediaUrl('posts') ?: $p->featured_image,
-                'created_at' => Carbon::parse($p->published_at ?? $p->created_at)->format('M d, Y'),
+            ->map(fn ($p) => [
+                'id'        => $p->id,
+                'slug'      => $p->slug,
+                'title'     => $p->title,
+                'category'  => $p->category?->name ?? 'General News',
+                'image'     => $p->featured_image_url,
+                'read_time' => $p->read_time,
+                'created_at'=> Carbon::parse($p->published_at ?? $p->created_at)->format('M d, Y'),
             ]);
+
+        // Build Schema.org JSON-LD
+        $jsonLd = [
+            '@context'         => 'https://schema.org',
+            '@type'            => 'NewsArticle',
+            'headline'         => $post->effective_seo_title,
+            'description'      => $post->effective_seo_description,
+            'image'            => $post->featured_image_url,
+            'datePublished'    => optional($post->published_at)->toIso8601String(),
+            'dateModified'     => $post->updated_at->toIso8601String(),
+            'author'           => [
+                '@type' => 'Organization',
+                'name'  => 'Ministry of Information, Cambodia',
+            ],
+            'publisher'        => [
+                '@type' => 'Organization',
+                'name'  => 'Ministry of Information, Cambodia',
+                'logo'  => ['@type' => 'ImageObject', 'url' => asset('images/logo.png')],
+            ],
+            'mainEntityOfPage' => [
+                '@type' => 'WebPage',
+                '@id'   => route('news.show', $post->slug),
+            ],
+        ];
 
         return Inertia::render('News/Show', [
             'post' => [
-                'id' => $post->id,
-                'title' => $post->title,
-                'content' => $post->content, // The full body
-                'excerpt' => $post->excerpt,
-                'category' => $post->category?->name ?? 'General News',
-                // Added the same fallback logic as index
-                'image' => $post->getFirstMediaUrl('posts') ?: $post->featured_image,
-                // Format date for a cleaner look
-                'created_at' => Carbon::parse($post->published_at ?? $post->created_at)->format('M d, Y'),
+                'id'               => $post->id,
+                'slug'             => $post->slug,
+                'title'            => $post->title,
+                'content'          => $post->content,
+                'excerpt'          => $post->excerpt,
+                'category'         => $post->category?->name ?? 'General News',
+                'category_slug'    => $post->category?->slug,
+                'image'            => $post->featured_image_url,
+                'read_time'        => $post->read_time,
+                'views_count'      => $post->views_count,
+                'source_credit'    => $post->source_credit,
+                'is_breaking'      => $post->is_breaking,
+                'seo_title'        => $post->effective_seo_title,
+                'seo_description'  => $post->effective_seo_description,
+                'created_at'       => Carbon::parse($post->published_at ?? $post->created_at)->format('M d, Y'),
+                'created_at_iso'   => optional($post->published_at)->toIso8601String(),
             ],
-            // Pass the newly fetched array to your Show.vue component
             'recentPosts' => $recentPosts,
+            'jsonLd'      => $jsonLd,
         ]);
     }
 }

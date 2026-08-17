@@ -14,12 +14,28 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                sans: ["Kantumruy Pro", "Siemreap", "Koh Santepheap", "Inter", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                "gov-blue": "#002B5B",
-                "gov-gold": "#FFD700",
+                "moi-blue": "#0B3C95",
+                "moi-navy": "#082866",
+                "moi-blue-hover": "#1D4ED8",
+                "moi-blue-50": "#EFF6FF",
+                "moi-red": "#D91A2A",
+                "moi-slate-50": "#F8FAFC",
+                "moi-slate-200": "#E2E8F0",
+                "moi-slate-300": "#CBD5E1",
+                "moi-slate-500": "#64748B",
+                "moi-slate-900": "#0F172A",
             },
+            keyframes: {
+                shimmer: {
+                    '100%': { transform: 'translateX(100%)' }
+                }
+            },
+            animation: {
+                shimmer: 'shimmer 2s infinite',
+            }
         },
     },
 
@@ -32,23 +48,23 @@ export default {
     daisyui: {
         themes: [
             {
-                gdib: {
-                    "primary": "#002B5B",     // Deep Official Blue
-                    "secondary": "#E00000",   // Strong Official Red
-                    "accent": "#FFD700",      // Government Gold
-                    "neutral": "#1e293b",     // Dark Slate for text
-                    "base-100": "#ffffff",    // Pure White Background
-                    "base-200": "#f8fafc",    // Light Grey for section backgrounds
-                    "base-300": "#f1f5f9",    // Slightly darker for borders
+                moinfo: {
+                    "primary": "#0B3C95",
+                    "primary-focus": "#1D4ED8",
+                    "secondary": "#082866",
+                    "accent": "#D91A2A",
+                    "neutral": "#0F172A",
+                    "base-100": "#ffffff",
+                    "base-200": "#F8FAFC",
+                    "base-300": "#E2E8F0",
                     "info": "#3b82f6",
                     "success": "#16a34a",
                     "warning": "#eab308",
-                    "error": "#dc2626",
+                    "error": "#D91A2A",
                 },
             },
-            "corporate", // Keep corporate as a backup
+            "corporate",
         ],
-        // Force the new custom 'gdib' theme for everyone, even in dark mode
-        darkTheme: "gdib",
+        darkTheme: "moinfo",
     },
 };

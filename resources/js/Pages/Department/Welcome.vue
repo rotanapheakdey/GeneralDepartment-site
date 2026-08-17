@@ -4,7 +4,6 @@ import { Head, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 
 import MainHero from "@/Components/Sections/MainHero.vue";
-import HeroSlider from "@/Components/Sections/HeroSlider.vue";
 import LatestNews from "@/Components/Sections/LatestNews.vue";
 import RecentDocuments from "@/Components/Sections/RecentDocuments.vue";
 
@@ -22,15 +21,15 @@ const settings = computed(() => usePage().props.settings || {});
     <GovLayout>
         <Head :title="$t('nav.home') + ' - MoI'" />
 
-        <MainHero :settings="settings" />
-
-        <div class="bg-slate-50 py-12">
-            <HeroSlider :banners="banners" />
+        <div v-reveal>
+            <MainHero :settings="settings" :banners="banners" />
         </div>
 
-        <LatestNews :posts="latestPosts" />
+        <div v-reveal>
+            <LatestNews :posts="latestPosts" />
+        </div>
 
-        <div id="documents">
+        <div id="documents" v-reveal>
             <RecentDocuments :documents="latestDocuments" />
         </div>
     </GovLayout>

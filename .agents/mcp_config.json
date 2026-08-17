@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "./"]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "./"]
+    },
+    "database": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@modelcontextprotocol/server-mysql", 
+        "mysql://sail:password@127.0.0.1:3307/cms"
+      ]
+    }
+  }
+}

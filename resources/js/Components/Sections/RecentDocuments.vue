@@ -17,7 +17,7 @@ const selectedDoc = ref(null);
         <div class="max-w-7xl mx-auto px-4">
 
             <div class="flex items-center gap-4 mb-10">
-                <div class="p-3 bg-white rounded-2xl shadow-sm text-[#002B5B]">
+                <div class="p-3 bg-white rounded-2xl shadow-sm text-[moi-navy]">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-6 w-6"
