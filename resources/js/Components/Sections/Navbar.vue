@@ -51,7 +51,7 @@ onMounted(() => {
             <div class="flex items-center gap-4">
                 <Link :href="route('contact')" class="hover:text-white transition">{{ $t('nav.public_services') }}</Link>
                 <span class="text-slate-600">|</span>
-                <Link :href="route('contact')" class="hover:text-white transition">{{ $t('nav.press_accreditation') }}</Link>
+                <a href="https://media.inb.gov.kh/" target="_blank" class="hover:text-white transition">{{ $t('nav.press_accreditation') }}</a>
                 
                 <button class="flex items-center gap-1 hover:text-white bg-white/5 px-2 py-1 rounded transition ml-2">
                     <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -105,7 +105,6 @@ onMounted(() => {
                     
                     <!-- 1. Home -->
                     <Link href="/" class="flex items-center h-full hover:text-moi-blue-50 transition border-b-2" :class="[$page.url === '/' ? 'border-moi-blue-50 text-moi-blue-50' : 'border-transparent']">
-                        <svg class="w-4 h-4 mr-1 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                         <span class="hidden xl:inline">{{ $t("nav.home") }}</span>
                     </Link>
 
