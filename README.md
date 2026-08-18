@@ -1,188 +1,135 @@
-# 🇰🇭 GDIB Public Information Portal
+# 🇰🇭 MoINFO (Ministry of Information) - Digital Newsroom & Ministerial Portal
 
-A modern **Content Management System (CMS)** and public information portal for the **General Department of Information and Broadcasting (GDIB)**.
-
-This project provides a bilingual (Khmer / English) platform for sharing:
-
-- 📰 Government news and updates
-- 📄 Official documents (Prakas)
-- 📢 Public announcements and notices
-
-The portal is designed to feel like a real government website while remaining simple enough for academic and demonstration purposes.
-
-**Project Type:** Academic Assignment (March 2026)  
-**Status:** Actively Developed
+A modernized, high-performance Content Management System (CMS) and bilingual public information portal for the **Ministry of Information (MoINFO)**, Cambodia. This platform is redesigned to meet international newsroom and government portal standards (e.g., BBC, GOV.UK) with full Khmer (`ភាសាខ្មែរ`) and English (`EN`) localization.
 
 ---
 
-## 🎯 Project Goals
-
-- 📡 Make official information easier for the public to access online
-- 🌐 Support both Khmer and English users in a single system
-- 🧩 Provide a clear structure for managing news, documents, and settings
-- 🔒 Follow good practices for access control and content publishing
-- 🧱 Demonstrate a clean, maintainable architecture suitable for real institutions
-
----
-
-## ✨ Key Features
-
-- 🌐 Bilingual interface (Khmer / English) with remembered language preference
-- 📰 News management with cover images and rich content
-- 📚 Document repository for official PDFs (Prakas) with download links
-- 📊 Admin dashboard for creating, editing, and organizing content
-- 🧭 Category-based navigation for clearer content discovery
-- ⚙️ Global settings management (logo, site title, contact info, etc.)
-- 📱 Modern, responsive UI that works on desktop, tablet, and mobile
+## 📋 Table of Contents
+1. [🎨 Design System & Brand Identity](#-design-system--brand-identity)
+2. [🌟 Key Features & Redesigns](#-key-features--redesigns)
+3. [🛠 Technical Architecture & Stack](#-technical-architecture--stack)
+4. [🚀 Developer Quick Start](#-developer-quick-start)
+5. [🔄 Multi-PC Git Sync Helper](#-multi-pc-git-sync-helper)
+6. [🏛 Presentation & Walkthrough Guide](#-presentation--walkthrough-guide)
 
 ---
 
-## 👤 User Roles & Permissions
+## 🎨 Design System & Brand Identity
 
-- 👑 Administrator
-	- Full access to manage users, roles, settings, categories, posts, and documents
-	- Can configure what appears on the public portal
+The portal follows the official **MoINFO Design System** to deliver a premium, authoritative, and clean user experience.
 
-- ✍️ Editor / Staff
-	- Can create, edit, and publish news articles and documents
-	- Limited access to system-level settings
+| Element | Specification | Value / Hex |
+| :--- | :--- | :--- |
+| **Primary Color** | Royal Blue | `#0B3C95` |
+| **Accent Color** | Crimson Red | `#D91A2A` |
+| **Dark Accents** | Navy Slate | `#0F172A` |
+| **Khmer Typography** | Kantumruy Pro, Siemreap | Legible, high-hierarchy Khmer |
+| **English Typography** | Outfit, Inter | Modern sans-serif |
 
-- 🌍 Public Visitor
-	- Reads news, views documents, and downloads public files
-	- Can switch between Khmer and English
-
----
-
-## 🧱 Main Modules
-
-- 📰 News Module
-	- Manage news posts with title, content, thumbnail image, category, and publish status
-	- Show latest and featured posts on the homepage
-
-- 📂 Category Module
-	- Organize posts into logical groups (e.g., Announcements, Policies, Events)
-	- Help users quickly find relevant information
-
-- 📄 Document Module
-	- Store and manage official PDF documents (Prakas and other files)
-	- Provide clear titles, descriptions, and download options
-
-- ⚙️ Settings Module
-	- Manage site-wide configuration such as logo, favicon, department name, and footer text
-	- Keep important system values in one place for easier maintenance
+*Design elements like buttons, borders, and cards utilize subtle micro-animations and rounded edges (`rounded-2xl`) for a premium modern feel.*
 
 ---
 
-## 🧰 Tech Stack
+## 🌟 Key Features & Redesigns
 
-- 🖥️ Backend: **Laravel 11**, **Filament PHP v3**, **Spatie Media Library**
-- 💻 Frontend: **Vue.js 3 (Composition API)**, **Inertia.js**, **Ziggy**
-- 🎨 Styling: **Tailwind CSS**, **daisyUI** (custom theme)
-- 🐳 Environment: **Laravel Sail (Docker)**
-- 🌏 Localization: **vue-i18n** with persistent locale storage
+### 1. 2-Tier Modular Navigation
+* **Tier 1 (Utility Bar):** Real-time localized date, a **live breaking news marquee ticker**, language selector (KM/EN), and quick government action buttons.
+* **Tier 2 (Main Navbar):** Sticky navy navbar housing a streamlined mega-menu for desktop and an intuitive, fluid accordion menu for mobile.
 
-These technologies were chosen to balance developer productivity, performance, and a modern user experience.
+### 2. Dynamic Media & Broadcasting Hub (`/media`)
+* Replaced bloated media pages with a single dynamic hub.
+* Admins can manage TV channels, radio networks, and photo galleries directly in the admin panel.
+* Dynamic card layout displays uploadable SVG/PNG logos (managed via Spatie Media Library) and handles fallbacks gracefully.
 
----
+### 3. Fully Localized Khmer / English Core
+* Implemented clean multi-language routing.
+* Language strings are managed via `resources/js/lang/km.json` and `en.json` for easy translation updates.
 
-## 👥 Development Team
-
-This project was developed collaboratively as a student team project:
-
-- **Rotana Pheakdey (ភក្តី រតនា)**
-- **Khom Socheat (ខុម សុជាត)**
-- **KEO Chournsocheat (កែវ ជួនសុជាតិ)**
-
-Roles and responsibilities were shared and rotated during development to support learning.
+### 4. Modern Contact Hub (`/contact`)
+* Clean modern layout with a responsive two-column grid.
+* Left column contains verified Ministry details (No. 62 Preah Monivong Blvd, Phnom Penh, hotline `+855 (0)23 724 159`, official email, and office hours) backed by an interactive **Google Map**.
+* Right column features a modern contact form matching official UX standards.
 
 ---
 
-## 🔍 Typical User Flow
+## 🛠 Technical Architecture & Stack
 
-- A public visitor opens the portal and lands on the homepage
-- They browse the latest news and can filter by category
-- They switch language between Khmer and English when needed
-- They access the documents section to download official PDFs
-- Administrators and staff log in to the Filament dashboard to manage content
+The portal utilizes a hybrid single-page application structure for maximum SEO capability and speed.
 
----
-
-## 🧠 What This Project Demonstrates
-
-- Full‑stack development with **Laravel + Vue (Inertia)** in a single-page style setup
-- Practical CMS architecture for government and public sector portals
-- Clean separation between public-facing pages and an internal admin panel
-- Use of UUIDs, categories, and localized content to keep data organized
-- Focus on readability, consistency, and maintainability of the codebase
-
-Although it is an academic project, the structure and concepts are aligned with real public information systems.
+* **Backend Framework:** Laravel 12.x
+* **Admin Dashboard:** Filament PHP v3 (managing News, Documents, Media Links, Settings, and Users)
+* **Frontend UI:** Vue.js 3 (Composition API) with Inertia.js (Single-Page App routing)
+* **CSS & Tailwind:** Tailwind CSS & DaisyUI v5 (custom variables mapped to MoINFO colors)
+* **Database:** MySQL 8.0+
+* **Environment:** Laravel Sail (Docker)
 
 ---
 
-## 🧩 System Architecture (High Level)
+## 🚀 Developer Quick Start
 
-- The system follows a monolithic architecture using Laravel on the backend and Vue.js (Inertia) on the frontend.
-- Public pages (home, news, documents, about, profile, etc.) are rendered through Inertia, giving a smooth single-page experience.
-- An internal admin area powered by Filament PHP is used for managing content and configuration.
-- Media files (images, PDFs) are stored in a structured way and linked to posts and documents using a media library.
+### Prerequisites
+* Docker & Docker Compose
+* WSL 2 (for Windows developers)
+* Node.js v20+ & npm
 
-This design keeps the public experience simple while giving administrators powerful tools behind the scenes.
+### Setup Instructions
 
----
+1. **Clone the repository and enter the directory:**
+   ```bash
+   git clone <repository-url>
+   cd CMS
+   ```
 
-## 🗂️ Data Model Overview (Conceptual)
+2. **Boot the environment (Laravel Sail):**
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
 
-- Category
-	- Represents logical groups such as Announcements, Events, Policies
-	- Used to organize both news posts and possibly documents
+3. **Install dependencies:**
+   ```bash
+   ./vendor/bin/sail composer install
+   ./vendor/bin/sail npm install
+   ```
 
-- Post (News)
-	- Contains title, summary, body content, cover image, and language
-	- Linked to a category and a created date
-	- Uses UUID-based routing to improve security and avoid ID guesswork
+4. **Prepare the database:**
+   ```bash
+   ./vendor/bin/sail artisan migrate --seed
+   ```
 
-- Document
-	- Represents an official file (for example Prakas in PDF format)
-	- Includes a title, short description, file attachment, and visibility status
+5. **Build and watch assets:**
+   ```bash
+   # Development hot-reload
+   ./vendor/bin/sail npm run dev
 
-- Setting
-	- Stores global values like site name, department name, logo path, and contact information
-	- Helps keep configuration consistent across different environments
-
-- User and Roles
-	- Users can log in to the admin panel
-	- Roles and permissions control what each user can see and edit
-
----
-
-## 📊 Admin Dashboard (Filament)
-
-- Content is managed through a Filament-based admin panel.
-- Dedicated sections exist for managing categories, posts, documents, users, and settings.
-- Tables, forms, and filters make it easy to search, edit, and review content.
-- Validation and structured forms help reduce mistakes when entering official information.
-
-The goal is to make non-technical staff comfortable managing a government-style portal.
+   # Production build
+   ./vendor/bin/sail npm run build
+   ```
 
 ---
 
-## 🔒 Security & Good Practices
+## 🔄 Multi-PC Git Sync Helper
 
-- Role-based access control separates administrative actions from public visitors.
-- UUIDs are used in routes to make it harder to guess internal records.
-- Files are stored in managed storage instead of being placed directly in the public folder.
-- Only published items are visible to the public; drafts remain internal.
+To support developers working across multiple machines, a Git-based synchronization helper is included. The script links your global Antigravity brain directory with this repository so you can commit your active chats and continue on a different PC.
 
-These choices support safer handling of official content, even in a student project.
+### How to Sync:
+1. **Push your work:** Commit and push the `.gemini/` folder and your changes on PC 1.
+2. **Pull on PC 2:** Do a standard `git pull` on your other computer.
+3. **Execute link script:**
+   * Close Antigravity IDE.
+   * Right-click **`setup_git_brain_sync.bat`** in the repository root and select **"Run as administrator"**.
+   * Reopen the IDE—your chat state, memory, and history will be loaded!
 
 ---
 
-## 🚀 Future Improvements (Ideas)
+## 🏛 Presentation & Walkthrough Guide
 
-- 🔎 Full-text search for news and documents
-- 📬 Email or SMS notifications for important announcements
-- 📈 Basic analytics dashboard (page views, popular posts, document downloads)
-- 🧾 Audit logs to track who changed which content and when
-- 🌐 API layer for integrating with other government systems in the future
+Use these points to highlight your work during reviews or presentations:
 
-These ideas can help evolve the project from an academic assignment into a more production-ready public information platform.
+### 💡 High-Velocity News vs. Official Portal
+Demonstrate how the **2-Tier Navbar** successfully keeps high-velocity widgets (the news ticker and public alerts) inside the utility bar, freeing up the primary navigation for ministerial structure and official legal documents.
+
+### ⚙️ The Power of Filament Integration
+Log into the admin panel (`/admin`) and show how easy it is to manage the external **Media & Broadcasting** grid dynamically. Upload a new channel logo, set the order weight, toggle the active switch, and instantly see the `/media` page update in real-time.
+
+### 🌐 Dual-Language Fidelity
+Demonstrate the fluid toggle between Khmer and English on the navigation bar and Contact page. Note how the Khmer typography seamlessly matches the official governmental branding while maintaining high legibility.
