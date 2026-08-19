@@ -104,10 +104,11 @@ const submitForm = () => {
                         <!-- Map Embed -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden h-64 relative">
                             <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1d3908.7618274187017!2d104.91924611532822!3d11.568892191786524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109513e9a5bdad1%3A0x6b4f70c57c4f4a3e!2sMinistry%20of%20Information!5e0!3m2!1sen!2skh!4v1628156108169!5m2!1sen!2skh" 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.835824982633!2d104.9152914757303!3d11.577484444158485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951478170c0c5%3A0x892a06518173595b!2sMinistry%20of%20Information!5e0!3m2!1sen!2skh!4v1724056000000!5m2!1sen!2skh" 
                                 class="absolute inset-0 w-full h-full border-0" 
-                                allowfullscreen="" 
-                                loading="lazy">
+                                allowfullscreen
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
                         </div>
 
