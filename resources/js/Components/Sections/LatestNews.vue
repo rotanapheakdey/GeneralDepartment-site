@@ -72,7 +72,7 @@ onUnmounted(() => stopAutoScroll());
             <Link
                 v-for="post in posts"
                 :key="post.id"
-                :href="route('news.show', post.slug)"
+                :href="route('news.show', post.slug || post.id)"
                 class="group flex flex-col bg-base-100 rounded-3xl transition-all duration-500 hover:-translate-y-2 shrink-0 w-[300px] md:w-[350px] snap-start border border-base-200 shadow-sm hover:shadow-xl"
             >
                 <div class="relative h-56 w-full overflow-hidden rounded-t-3xl bg-slate-200 animate-pulse">

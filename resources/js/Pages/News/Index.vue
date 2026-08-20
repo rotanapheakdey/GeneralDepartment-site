@@ -113,7 +113,7 @@
                         <div class="mt-auto flex items-center justify-between">
                             <span class="text-xs text-slate-400">{{ post.created_at }}</span>
                             <Link
-                                :href="route('news.show', post.slug)"
+                                :href="route('news.show', post.slug || post.id)"
                                 class="inline-flex items-center gap-1 text-sm font-bold text-secondary hover:text-primary transition-colors"
                             >
                                 {{ $t('news.read_article') }}

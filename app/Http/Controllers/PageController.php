@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     public function show($slug)
     {
-        if ($slug === 'leadership') {
+        if ($slug === 'leadership' || $slug === 'structure') {
             $leaders = Leader::with('media')
                 ->orderBy('order')
                 ->get()

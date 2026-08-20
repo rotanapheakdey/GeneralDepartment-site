@@ -99,7 +99,12 @@ class ActivityResource extends Resource
                         };
                         
                         if ($resource) {
-                            return $resource::getUrl('edit', ['record' => $record->subject_id]);
+                            $pages = $resource::getPages();
+                            if (array_key_exists('edit', $pages)) {
+                                return $resource::getUrl('edit', ['record' => $record->subject_id]);
+                            }
+                            // Fallback to index if no edit page exists (e.g. LeaderResource modal)
+                            return $resource::getUrl('index');
                         }
                         
                         return null;

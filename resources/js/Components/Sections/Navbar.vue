@@ -36,16 +36,18 @@ onMounted(() => {
                 <span>{{ currentDate }}</span>
             </div>
 
-            <!-- Middle: Breaking News Ticker (Marquee) -->
-            <div class="flex-1 flex items-center justify-center overflow-hidden px-8">
+            <!-- Middle: Breaking News Ticker -->
+            <div v-if="settings.breaking_news_active?.text === '1' && settings.breaking_news_content?.text" class="flex-1 flex items-center justify-center overflow-hidden px-8">
                 <div class="flex items-center gap-2 max-w-lg w-full bg-slate-800/50 rounded-full px-3 py-1">
                     <span class="bg-moi-red text-white px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider animate-pulse whitespace-nowrap">{{ $t('nav.breaking_news') }}</span>
-                    <marquee class="text-slate-200 text-xs truncate" scrollamount="4">
-                        <span class="mr-8">ក្រសួងព័ត៌មានប្រកាសដាក់ឱ្យប្រើប្រាស់ប្រព័ន្ធព័ត៌មានវិទ្យាថ្មី (Ministry of Information launches new IT system)</span>
-                        <span class="mr-8">សន្និសីទសារព័ត៌មានស្តីពីសមិទ្ធផល (Press Conference on Achievements)</span>
-                    </marquee>
+                    <div class="overflow-hidden w-full relative h-4 flex items-center">
+                        <div class="absolute whitespace-nowrap text-slate-200 text-xs animate-marquee">
+                            {{ settings.breaking_news_content?.text }}
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div v-else class="flex-1 hidden md:block"></div>
 
             <!-- Right: Quick Links, Search, Lang -->
             <div class="flex items-center gap-4">
@@ -115,10 +117,10 @@ onMounted(() => {
 
                     <!-- 3. Leadership & Org -->
                     <div class="relative group h-full flex items-center">
-                        <Link :href="route('about_us.index')" class="flex items-center gap-1 hover:text-moi-blue-50 transition border-b-2 h-full" :class="[$page.url.startsWith('/leadership') ? 'border-moi-blue-50 text-moi-blue-50' : 'border-transparent']">
+                        <a href="#" @click.prevent class="flex items-center gap-1 hover:text-moi-blue-50 transition border-b-2 h-full cursor-pointer" :class="[$page.url.startsWith('/leadership') ? 'border-moi-blue-50 text-moi-blue-50' : 'border-transparent']">
                             {{ $t("nav.leadership_org") }}
                             <svg class="h-4 w-4 opacity-50" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                        </Link>
+                        </a>
                         <div class="absolute top-full left-0 w-64 bg-white text-slate-800 rounded-b-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border-t-2 border-moi-blue">
                             <Link :href="route('about_us.leadership')" class="block px-4 py-3 hover:bg-slate-50 hover:text-moi-blue transition border-b border-slate-100">{{ $t("nav.minister_activity") }}</Link>
                             <Link :href="route('about_us.structure')" class="block px-4 py-3 hover:bg-slate-50 hover:text-moi-blue transition border-b border-slate-100">{{ $t("nav.general_departments") }}</Link>
@@ -223,3 +225,18 @@ onMounted(() => {
         </div>
     </nav>
 </template>
+
+<style scoped>
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+  display: inline-block;
+  padding-left: 100%;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+</style>

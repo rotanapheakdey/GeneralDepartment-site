@@ -38,14 +38,31 @@ class SettingResource extends Resource
                 ->description('Update the text or attach an image for this site setting.')
                 ->schema([
                     Forms\Components\TextInput::make('key')
+                        ->label('Setting Name')
+                        ->formatStateUsing(fn ($state) => ucwords(str_replace('_', ' ', $state)))
                         ->disabled()
                         ->required(),
 
+                    Forms\Components\Toggle::make('is_active_toggle')
+                        ->label('Enable Breaking News')
+                        ->visible(fn (callable $get, $record) => $record && $record->key === 'breaking_news_active')
+                        ->helperText('Turn on to display the breaking news ticker on the website.'),
+
+                    Forms\Components\Textarea::make('content_km_dummy')
+                        ->label('Breaking News Content (Khmer)')
+                        ->visible(fn (callable $get, $record) => $record && $record->key === 'breaking_news_active'),
+
+                    Forms\Components\Textarea::make('content_en_dummy')
+                        ->label('Breaking News Content (English)')
+                        ->visible(fn (callable $get, $record) => $record && $record->key === 'breaking_news_active'),
+
                     Forms\Components\Textarea::make('value_km')
-                        ->label('Value (Khmer)'),
+                        ->label('Value (Khmer)')
+                        ->visible(fn (callable $get, $record) => !$record || $record->key !== 'breaking_news_active'),
 
                     Forms\Components\Textarea::make('value_en')
-                        ->label('Value (English)'),
+                        ->label('Value (English)')
+                        ->visible(fn (callable $get, $record) => !$record || $record->key !== 'breaking_news_active'),
 
                     // NEW: The Image Uploader
                     SpatieMediaLibraryFileUpload::make('image')
@@ -63,7 +80,8 @@ class SettingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('key')
-                    ->fontFamily('mono')
+                    ->label('Setting Name')
+                    ->formatStateUsing(fn ($state) => ucwords(str_replace('_', ' ', $state)))
                     ->searchable()
                     ->sortable(),
 
@@ -75,7 +93,10 @@ class SettingResource extends Resource
 
                 Tables\Columns\TextColumn::make('value_km')
                     ->limit(50)
-                    ->label('Khmer'),
+                    ->label('Khmer')
+                    ->formatStateUsing(fn ($state, $record) => $record->key === 'breaking_news_active' ? ($state === '1' ? 'Enabled' : 'Disabled') : $state)
+                    ->color(fn ($state, $record) => $record->key === 'breaking_news_active' ? ($state === '1' ? 'success' : 'danger') : null)
+                    ->badge(fn ($record) => $record->key === 'breaking_news_active'),
 
                 Tables\Columns\TextColumn::make('value_en')
                     ->limit(50)
@@ -97,6 +118,11 @@ class SettingResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()->where('key', '!=', 'breaking_news_content');
     }
 
     public static function getPages(): array
